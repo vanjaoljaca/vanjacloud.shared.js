@@ -1,7 +1,9 @@
-import * as fs from 'fs';
+// fs doesnt work in expo.. sigh
+// https://docs.expo.dev/versions/latest/sdk/filesystem/
 
 let values: any;
 try {
+    const fs = require('fs');
     let settingsJson;
     try {
         settingsJson = fs.readFileSync('local.settings.json', 'utf8');

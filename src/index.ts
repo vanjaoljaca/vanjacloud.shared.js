@@ -1,3 +1,7 @@
-export default class MyModule {
-    myThing = 7;
+
+import keys from '../keys';
+
+export default {
+    Keys: keys,
+    myThing: 99
 }
