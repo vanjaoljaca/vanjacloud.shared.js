@@ -1,7 +1,8 @@
 {
   "name": "vanjacloudjs.shared",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "license": "MIT",
   "scripts": {
     "build": "tsc",

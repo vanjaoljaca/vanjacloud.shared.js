@@ -1,13 +1,14 @@
 // testable-http-triggered-function/__tests__/index.test.ts
 
-import assert = require('assert')
+// import assert = require('assert')
+import assert from 'assert';
 import keys from '../keys';
 // todo: https://github.com/anthonychu/azure-functions-test-utils
 import { backOff } from "exponential-backoff";
 import { Configuration, OpenAIApi } from "openai"
 import * as fs from 'fs';
 import axios from 'axios';
-import path = require('path');
+import path from 'path';
 
 // const ChatGPTAPI = require('chatgpt').ChatGPTAPI;
 // import { ChatGPTAPI } from 'chatgpt'
