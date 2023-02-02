@@ -1,6 +1,5 @@
 // testable-http-triggered-function/__tests__/index.test.ts
 
-import run from './main/index'
 // https://developers.notion.com/reference/intro
 import keys from './keys';
 import { Client } from "@notionhq/client"
