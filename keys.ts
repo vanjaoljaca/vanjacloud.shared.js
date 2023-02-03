@@ -23,14 +23,24 @@ try {
 
         console.log(values)
 
-        values = {
-            OPENAI_KEY: process.env.OPENAI_KEY,
-            NOTION_SECRET: process.env.NOTION_SECRET,
-            SPOTIFY_CLIENTID: process.env.SPOTIFY_CLIENTID,
-            SPOTIFY_CLIENTSECRET: process.env.SPOTIFY_CLIENTSECRET
+        try {
+            values = {
+                OPENAI_KEY: process.env.OPENAI_KEY,
+                NOTION_SECRET: process.env.NOTION_SECRET,
+                SPOTIFY_CLIENTID: process.env.SPOTIFY_CLIENTID,
+                SPOTIFY_CLIENTSECRET: process.env.SPOTIFY_CLIENTSECRET
+            }
+            console.info('Loaded env variables:',
+                Object.keys(values).map(k => `${k}: ${values[k]?.length}`));
+        } catch (err) {
+            console.warn('Could not load env variables.');
+            values = {
+                OPENAI_KEY: undefined,
+                NOTION_SECRET: undefined,
+                SPOTIFY_CLIENTID: undefined,
+                SPOTIFY_CLIENTSECRET: undefined,
+            }
         }
-        console.info('Loaded env variables:',
-            Object.keys(values).map(k => `${k}: ${values[k]?.length}`));
     }
 }
 
