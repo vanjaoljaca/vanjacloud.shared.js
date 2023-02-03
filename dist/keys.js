@@ -22,15 +22,30 @@ catch (err) {
         values = require('../keys.json');
     }
     catch (err) {
-        console.info('Could not load ../keys.json file. Falling back to env variables.');
-        console.log(values);
+      console.info(
+          'Could not load ../keys.json file. Falling back to env variables.');
+      console.log(values);
+      try {
         values = {
-            OPENAI_KEY: process.env.OPENAI_KEY,
-            NOTION_SECRET: process.env.NOTION_SECRET,
-            SPOTIFY_CLIENTID: process.env.SPOTIFY_CLIENTID,
-            SPOTIFY_CLIENTSECRET: process.env.SPOTIFY_CLIENTSECRET
+          OPENAI_KEY: process.env.OPENAI_KEY,
+          NOTION_SECRET: process.env.NOTION_SECRET,
+          SPOTIFY_CLIENTID: process.env.SPOTIFY_CLIENTID,
+          SPOTIFY_CLIENTSECRET: process.env.SPOTIFY_CLIENTSECRET
         };
-        console.info('Loaded env variables:', Object.keys(values).map(k => { var _a; return `${k}: ${(_a = values[k]) === null || _a === void 0 ? void 0 : _a.length}`; }));
+        console.info('Loaded env variables:', Object.keys(values).map(k => {
+          var _a;
+          return `${k}: ${(_a = values[k]) === null || _a === void 0 ? void 0
+              : _a.length}`;
+        }));
+      } catch (err) {
+        console.warn('Could not load env variables.');
+        values = {
+          OPENAI_KEY: undefined,
+          NOTION_SECRET: undefined,
+          SPOTIFY_CLIENTID: undefined,
+          SPOTIFY_CLIENTSECRET: undefined,
+        };
+      }
     }
 }
 exports.default = {
