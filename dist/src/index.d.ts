@@ -1,3 +1,4 @@
+import { ThoughtDB } from './notion';
 declare const _default: {
     Keys: {
         openai: any;
@@ -8,5 +9,6 @@ declare const _default: {
         };
     };
     myThing: number;
+    ThoughtDB: typeof ThoughtDB;
 };
 export default _default;
