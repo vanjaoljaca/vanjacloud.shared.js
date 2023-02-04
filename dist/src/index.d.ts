@@ -1,5 +1,4 @@
 import {ThoughtDB} from './notion';
-import {getOrCreateCompletion} from "./openai";
 declare const _default: {
   Keys: {
     openai: any;
@@ -11,6 +10,5 @@ declare const _default: {
   };
   myThing: number;
   ThoughtDB: typeof ThoughtDB;
-  getOrCreateCompletion: typeof getOrCreateCompletion;
 };
 export default _default;
