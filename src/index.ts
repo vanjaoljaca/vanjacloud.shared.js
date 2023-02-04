@@ -6,5 +6,4 @@ export default {
     Keys: keys,
     myThing: 99,
     ThoughtDB: ThoughtDB,
-    getOrCreateCompletion: getOrCreateCompletion
 }
