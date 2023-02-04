@@ -33,7 +33,7 @@ try {
             console.info('Loaded env variables:',
                 Object.keys(values).map(k => `${k}: ${values[k]?.length}`));
         } catch (err) {
-            console.warn('Could not load env variables.');
+            console.warn('Could not load any keys variables.');
             values = {
                 OPENAI_KEY: undefined,
                 NOTION_SECRET: undefined,

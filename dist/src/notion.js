@@ -61,7 +61,6 @@ class ThoughtDB {
     return text;
   }
 }
-
 exports.ThoughtDB = ThoughtDB;
 ThoughtDB.proddbid = '1ccbf2c452d6453d94bc462a8c83c200';
 ThoughtDB.testdbid = '4ef4fb0714c9441d94b06c826e74d5d3';

@@ -38,7 +38,7 @@ catch (err) {
               : _a.length}`;
         }));
       } catch (err) {
-        console.warn('Could not load env variables.');
+        console.warn('Could not load any keys variables.');
         values = {
           OPENAI_KEY: undefined,
           NOTION_SECRET: undefined,
