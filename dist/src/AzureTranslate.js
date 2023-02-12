@@ -16,8 +16,8 @@ class AzureTranslate {
     this.location = location || "westus3";
   }
 
-  async translate(text, to, from, traceId) {
-    to = to || ['en', 'de', 'es', 'sr-Cyrl-BA'];
+  async translate(text, opts) {
+    const defaultTo = ['en', 'de', 'es', 'sr-Cyrl-BA'];
     const r = await (0, axios_1.default)({
       baseURL: this.endpoint,
       url: '/translate',
@@ -27,12 +27,13 @@ class AzureTranslate {
         // location required if you're using a multi-service or regional (not global) resource.
         'Ocp-Apim-Subscription-Region': this.location,
         'Content-type': 'application/json',
-        'X-ClientTraceId': traceId || (0, uuid_1.v4)().toString()
+        'X-ClientTraceId': (opts === null || opts === void 0 ? void 0
+            : opts.traceId) || (0, uuid_1.v4)().toString()
       },
       params: {
         'api-version': '3.0',
-        'from': from,
-        'to': to
+        'from': opts === null || opts === void 0 ? void 0 : opts.from,
+        'to': (opts === null || opts === void 0 ? void 0 : opts.to) || defaultTo
       },
       data: [{
         'text': text
