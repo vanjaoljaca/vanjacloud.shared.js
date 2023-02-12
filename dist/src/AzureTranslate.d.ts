@@ -5,5 +5,5 @@ export declare class AzureTranslate {
 
   constructor(key: string, endpoint?: string | undefined, location?: string | undefined);
 
-  translate(text: string, to?: string[], from?: string): Promise<any>;
+  translate(text: string, to?: string[], from?: string, traceId?: string): Promise<any>;
 }

@@ -10,7 +10,7 @@ export class AzureTranslate {
     this.location = location || "westus3"
   }
 
-  async translate(text: string, to?: string[], from?: string) {
+  async translate(text: string, to?: string[], from?: string, traceId?: string) {
 
     to = to || ['en', 'de', 'es', 'sr-Cyrl-BA'];
 
@@ -23,7 +23,7 @@ export class AzureTranslate {
         // location required if you're using a multi-service or regional (not global) resource.
         'Ocp-Apim-Subscription-Region': this.location,
         'Content-type': 'application/json',
-        'X-ClientTraceId': uuidv4().toString()
+        'X-ClientTraceId': traceId || uuidv4().toString()
       },
       params: {
         'api-version': '3.0',
