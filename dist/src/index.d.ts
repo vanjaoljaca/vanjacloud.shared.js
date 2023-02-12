@@ -1,4 +1,6 @@
 import {ThoughtDB} from './notion';
+import {AzureTranslate} from "./AzureTranslate";
+
 declare const _default: {
   Keys: {
     openai: any;
@@ -12,7 +14,7 @@ declare const _default: {
     };
     huggingface: any;
   };
-  myThing: number;
   ThoughtDB: typeof ThoughtDB;
+  AzureTranslate: typeof AzureTranslate;
 };
 export default _default;

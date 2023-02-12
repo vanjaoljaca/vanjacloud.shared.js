@@ -1,6 +1,6 @@
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : {"default": mod};
+    return (mod && mod.__esModule) ? mod : {"default": mod};
 };
 Object.defineProperty(exports, "__esModule", {value: true});
 exports.AzureTranslate = void 0;
@@ -42,6 +42,5 @@ class AzureTranslate {
     return r.data[0].translations;
   }
 }
-
 exports.AzureTranslate = AzureTranslate;
 //# sourceMappingURL=AzureTranslate.js.map
