@@ -7,6 +7,10 @@ declare const _default: {
       clientId: any;
       clientSecret: any;
     };
+    azure: {
+      translate: any;
+    };
+    huggingface: any;
   };
   myThing: number;
   ThoughtDB: typeof ThoughtDB;
