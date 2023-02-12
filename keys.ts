@@ -28,7 +28,9 @@ try {
                 OPENAI_KEY: process.env.OPENAI_KEY,
                 NOTION_SECRET: process.env.NOTION_SECRET,
                 SPOTIFY_CLIENTID: process.env.SPOTIFY_CLIENTID,
-                SPOTIFY_CLIENTSECRET: process.env.SPOTIFY_CLIENTSECRET
+                SPOTIFY_CLIENTSECRET: process.env.SPOTIFY_CLIENTSECRET,
+                AZURE_TRANSLATE_KEY: process.env.AZURE_TRANSLATE_KEY,
+                HUGGINGFACE_KEY: process.env.HUGGINGFACE_KEY
             }
             console.info('Loaded env variables:',
                 Object.keys(values).map(k => `${k}: ${values[k]?.length}`));
@@ -39,6 +41,8 @@ try {
                 NOTION_SECRET: undefined,
                 SPOTIFY_CLIENTID: undefined,
                 SPOTIFY_CLIENTSECRET: undefined,
+                AZURE_TRANSLATE_KEY: undefined,
+                HUGGINGFACE_KEY: undefined
             }
         }
     }
@@ -50,5 +54,9 @@ export default {
     spotify: {
         clientId: values.SPOTIFY_CLIENTID,
         clientSecret: values.SPOTIFY_CLIENTSECRET
-    }
+    },
+    azure: {
+        translate: values.AZURE_TRANSLATE_KEY
+    },
+    huggingface: values.HUGGINGFACE_KEY
 };
