@@ -9,7 +9,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-async function withLocalCache<T>(filename: string, fn: () => Promise<any>): Promise<T> {
+export async function withLocalCache<T>(filename: string, fn: () => Promise<any>): Promise<T> {
     if (fs.existsSync(filename)) {
         return JSON.parse(fs.readFileSync(filename, 'utf-8'));
     }

@@ -21,8 +21,6 @@ try {
     } catch (err) {
         console.info('Could not load ../keys.json file. Falling back to env variables.');
 
-        console.log(values)
-
         try {
             values = {
                 OPENAI_KEY: process.env.OPENAI_KEY,
