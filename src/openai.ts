@@ -9,9 +9,14 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-export async function withLocalCache<T>(filename: string, fn: () => Promise<any>): Promise<T> {
+export async function withLocalCache<T>(filename: string, fn: () => Promise<any>,
+                                        isExpired?: (t: T) => Promise<boolean>): Promise<T> {
     if (fs.existsSync(filename)) {
-        return JSON.parse(fs.readFileSync(filename, 'utf-8'));
+        let d = JSON.parse(fs.readFileSync(filename, 'utf-8'));
+        if (isExpired == null || !(await isExpired(d))) {
+            return d;
+        }
+        fs.rmSync(filename);
     }
 
     if (process.env.GITHUB_ACTION) {

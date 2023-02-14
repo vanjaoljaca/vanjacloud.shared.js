@@ -1,6 +1,6 @@
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : {"default": mod};
+    return (mod && mod.__esModule) ? mod : {"default": mod};
 };
 Object.defineProperty(exports, "__esModule", {value: true});
 exports.getOrCreateCompletion = exports.withLocalCache = void 0;
@@ -13,9 +13,13 @@ const configuration = new openai_1.Configuration({
 });
 const openai = new openai_1.OpenAIApi(configuration);
 
-async function withLocalCache(filename, fn) {
+async function withLocalCache(filename, fn, isExpired) {
   if (fs_1.default.existsSync(filename)) {
-    return JSON.parse(fs_1.default.readFileSync(filename, 'utf-8'));
+    let d = JSON.parse(fs_1.default.readFileSync(filename, 'utf-8'));
+    if (isExpired == null || !(await isExpired(d))) {
+      return d;
+    }
+    fs_1.default.rmSync(filename);
   }
   if (process.env.GITHUB_ACTION) {
     throw new Error(
@@ -32,7 +36,6 @@ async function withLocalCache(filename, fn) {
   fs_1.default.writeFileSync(filename, JSON.stringify(unwrapped));
   return result;
 }
-
 exports.withLocalCache = withLocalCache;
 async function getOrCreateCompletion(version, prompt) {
   const promptHash = Buffer.from(prompt).toString('base64');
