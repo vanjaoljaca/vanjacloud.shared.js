@@ -3,11 +3,15 @@ import axios from "axios";
 import {v4 as uuidv4} from "uuid";
 
 export class AzureTranslate {
+  private readonly traceIdGenerator: () => string
+
   constructor(private readonly key: string,
               private readonly endpoint?: string,
-              private readonly location?: string) {
+              private readonly location?: string,
+              traceIdGenerator?: () => string) {
     this.endpoint = endpoint || "https://api.cognitive.microsofttranslator.com"
     this.location = location || "westus3"
+    this.traceIdGenerator = traceIdGenerator || uuidv4;
   }
 
   async translate(text: string, opts?: { to?: string[], from?: string, traceId?: string }) {
@@ -23,7 +27,7 @@ export class AzureTranslate {
         // location required if you're using a multi-service or regional (not global) resource.
         'Ocp-Apim-Subscription-Region': this.location,
         'Content-type': 'application/json',
-        'X-ClientTraceId': opts?.traceId || uuidv4().toString()
+        'X-ClientTraceId': opts?.traceId || this.traceIdGenerator()
       },
       params: {
         'api-version': '3.0',
@@ -35,6 +39,6 @@ export class AzureTranslate {
       }],
       responseType: 'json'
     });
-    return r.data[0].translations;
+    return r.data[0].translations as { text: string, to: string }[];
   }
 }
