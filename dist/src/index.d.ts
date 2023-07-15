@@ -1,5 +1,6 @@
 import { ThoughtDB } from './notion';
 import { AzureTranslate } from "./AzureTranslate";
+import { ChatGPT } from "./ChatGPT";
 declare const _default: {
     Keys: {
         openai: any;
@@ -15,5 +16,6 @@ declare const _default: {
     };
     ThoughtDB: typeof ThoughtDB;
     AzureTranslate: typeof AzureTranslate;
+    ChatGPT: typeof ChatGPT;
 };
 export default _default;

@@ -6,9 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const keys_1 = __importDefault(require("../keys"));
 const notion_1 = require("./notion");
 const AzureTranslate_1 = require("./AzureTranslate");
+const ChatGPT_1 = require("./ChatGPT");
 exports.default = {
     Keys: keys_1.default,
     ThoughtDB: notion_1.ThoughtDB,
-    AzureTranslate: AzureTranslate_1.AzureTranslate
+    AzureTranslate: AzureTranslate_1.AzureTranslate,
+    ChatGPT: ChatGPT_1.ChatGPT
 };
 //# sourceMappingURL=index.js.map
