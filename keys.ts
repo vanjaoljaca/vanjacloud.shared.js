@@ -14,7 +14,7 @@ try {
     const settings = JSON.parse(settingsJson);
     values = settings.Values;
 } catch (err) {
-    console.info('Could not load  settings file. Falling back to ../keys.json variables.');
+    console.info('Could not load settings file. Falling back to ../keys.json variables.');
 
     try {
         values = require('../keys.json');
