@@ -2,7 +2,6 @@
 // fs doesnt work in expo.. sigh
 // https://docs.expo.dev/versions/latest/sdk/filesystem/
 Object.defineProperty(exports, "__esModule", { value: true });
-console.log('----EDIT ACCEPTED ---');
 let values;
 try {
     const fs = require('fs');
