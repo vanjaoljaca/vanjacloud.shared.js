@@ -15,7 +15,6 @@ const notion_1 = require("./notion");
 const keys_1 = __importDefault(require("../keys"));
 const moment_1 = __importDefault(require("moment"));
 const ChatGPT_1 = require("./ChatGPT");
-const openai_1 = __importDefault(require("openai"));
 describe('notion', () => {
     jest.setTimeout(20000);
     it.only('getLatest', async () => {
@@ -25,18 +24,13 @@ describe('notion', () => {
         let i = 0;
         const entries = [];
         try {
-            for (var _d = true, latest_1 = __asyncValues(latest), latest_1_1; latest_1_1 = await latest_1.next(), _a = latest_1_1.done, !_a;) {
+            for (var _d = true, latest_1 = __asyncValues(latest), latest_1_1; latest_1_1 = await latest_1.next(), _a = latest_1_1.done, !_a; _d = true) {
                 _c = latest_1_1.value;
                 _d = false;
-                try {
-                    let l = _c;
-                    // console.log(l) //?
-                    i++;
-                    entries.push(l);
-                }
-                finally {
-                    _d = true;
-                }
+                let l = _c;
+                // console.log(l) //?
+                i++;
+                entries.push(l);
             }
         }
         catch (e_1_1) { e_1 = { error: e_1_1 }; }
@@ -53,10 +47,13 @@ describe('notion', () => {
         If you have nothing good to add, then don't comment on the entry. If you have multiple interesting things to
         say from multiple perspectives on one entry, then feel free.
             ${entries.map(e => '* ' + e).join('\n')}`;
-        const c = new ChatGPT_1.ChatGPT.Client(new openai_1.default({ apiKey: keys_1.default.openai }), `You are a therapist, a philosopher, an organizer, an emotional processor, a second brain,
+        const c = new ChatGPT_1.ChatGPT.Client({
+            apiKey: keys_1.default.openai,
+            systemPrompt: `You are a therapist, a philosopher, an organizer, an emotional processor, a second brain,
             and a utility for parsing journal entries. Your job is to summarise insights, provide interesting and
             useful context, make suggestions, and just in general contribute. Not all will be about mental health,
-            some will just be about helping a builder build.`);
+            some will just be about helping a builder build.`
+        });
         // const m = await c.say(msg);
         //
         // console.log(m); //?

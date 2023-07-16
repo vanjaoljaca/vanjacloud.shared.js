@@ -11,7 +11,7 @@ describe('notion', () => {
     it.only('getLatest', async () => {
         const db = new ThoughtDB(keys.notion, ThoughtDB.proddbid)
 
-        const latest =  db.getLatest(moment.duration(2, 'month'))
+        const latest = db.getLatest(moment.duration(2, 'month'))
         let i = 0
         const entries = []
         for await (let l of latest) {
@@ -28,11 +28,14 @@ describe('notion', () => {
         say from multiple perspectives on one entry, then feel free.
             ${entries.map(e => '* ' + e).join('\n')}`
 
-        const c = new ChatGPT.Client(new OpenAI({ apiKey: keys.openai }),
-            `You are a therapist, a philosopher, an organizer, an emotional processor, a second brain,
+        const c = new ChatGPT.Client({
+            apiKey: keys.openai,
+            systemPrompt:
+                `You are a therapist, a philosopher, an organizer, an emotional processor, a second brain,
             and a utility for parsing journal entries. Your job is to summarise insights, provide interesting and
             useful context, make suggestions, and just in general contribute. Not all will be about mental health,
-            some will just be about helping a builder build.`);
+            some will just be about helping a builder build.`
+        });
         // const m = await c.say(msg);
         //
         // console.log(m); //?

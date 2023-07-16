@@ -5,7 +5,6 @@ import Chat = OpenAI.Chat;
 type MessageType = 'user' | 'system';
 
 export namespace ChatGPT {
-
     export class Message {
         private constructor(public type: MessageType, public text: string) { }
 
@@ -18,16 +17,32 @@ export namespace ChatGPT {
         }
     }
 
+        interface ConstructorProps {
+            apiKey?: string,
+            systemPrompt?: string,
+            openai?: (openai: OpenAI) => OpenAI
+        }
+
     export class Client {
         readonly MODEL_NAME = 'gpt-3.5-turbo-16k';
         // OpenAI.CompletionCreateParams.CreateCompletionRequestNonStreaming.messages
         readonly messages: Array<any> = []
 
-        constructor(private openai: OpenAI, private systemPrompt: string) {
+        private openai: OpenAI;
+        private readonly systemPrompt: string
+
+        constructor(props: ConstructorProps) {
+
+            let openai = props.openai || (openai => openai);
+
+            this.systemPrompt = props.systemPrompt || "Figure it out dummy";
+            this.openai = openai(new OpenAI({
+                apiKey: props.apiKey
+            }));
             this.messages = []
             this.messages.push({
                 role: 'system',
-                content: systemPrompt
+                content: this.systemPrompt
             });
         }
 

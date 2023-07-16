@@ -1,6 +1,6 @@
-import { ThoughtDB } from './notion';
-import { AzureTranslate } from "./AzureTranslate";
-import { ChatGPT } from "./ChatGPT";
+export { ThoughtDB } from './notion';
+export { AzureTranslate } from "./AzureTranslate";
+export { ChatGPT } from "./ChatGPT";
 declare const _default: {
     Keys: {
         openai: any;
@@ -14,8 +14,5 @@ declare const _default: {
         };
         huggingface: any;
     };
-    ThoughtDB: typeof ThoughtDB;
-    AzureTranslate: typeof AzureTranslate;
-    ChatGPT: typeof ChatGPT;
 };
 export default _default;

@@ -1,6 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChatGPT = void 0;
+const openai_1 = __importDefault(require("openai"));
 var ChatGPT;
 (function (ChatGPT) {
     class Message {
@@ -17,16 +21,19 @@ var ChatGPT;
     }
     ChatGPT.Message = Message;
     class Client {
-        constructor(openai, systemPrompt) {
-            this.openai = openai;
-            this.systemPrompt = systemPrompt;
+        constructor(props) {
             this.MODEL_NAME = 'gpt-3.5-turbo-16k';
             // OpenAI.CompletionCreateParams.CreateCompletionRequestNonStreaming.messages
             this.messages = [];
+            let openai = props.openai || (openai => openai);
+            this.systemPrompt = props.systemPrompt || "Figure it out dummy";
+            this.openai = openai(new openai_1.default({
+                apiKey: props.apiKey
+            }));
             this.messages = [];
             this.messages.push({
                 role: 'system',
-                content: systemPrompt
+                content: this.systemPrompt
             });
         }
         async say(message) {
@@ -69,5 +76,5 @@ var ChatGPT;
         }
     }
     ChatGPT.Client = Client;
-})(ChatGPT = exports.ChatGPT || (exports.ChatGPT = {}));
-//# sourceMappingURL=chatGPT.js.map
+})(ChatGPT || (exports.ChatGPT = ChatGPT = {}));
+//# sourceMappingURL=ChatGPT.js.map

@@ -1,11 +1,8 @@
 import keys from '../keys';
-import { ThoughtDB } from './notion';
-import { AzureTranslate } from "./AzureTranslate";
-import { ChatGPT } from "./ChatGPT";
+export { ThoughtDB } from './notion';
+export { AzureTranslate } from "./AzureTranslate";
+export { ChatGPT } from "./ChatGPT";
 
 export default {
-    Keys: keys,
-    ThoughtDB,
-    AzureTranslate,
-    ChatGPT
+    Keys: keys // lol fix this dumbness
 }
