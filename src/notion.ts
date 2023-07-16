@@ -58,7 +58,7 @@ export class ThoughtDB {
         const page_size = 30
         max = max || page_size
         let count = 0;
-        let res;
+        let res: any;
 
         let now = moment();
         let comparisonDate = moment().subtract(duration);
