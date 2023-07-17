@@ -1,6 +1,6 @@
 // testable-http-triggered-function/__tests__/index.test.ts
 
-import { ThoughtDB } from "./notion";
+import { ThoughtDB, ThoughtType } from "./notion";
 import keys from '../keys'
 import moment from 'moment'
 import { ChatGPT } from "./ChatGPT";
@@ -8,7 +8,44 @@ import OpenAI from "openai";
 
 describe('notion', () => {
     jest.setTimeout(20000)
-    it.only('getLatest', async () => {
+    it.only('getLatest.Translation', async () => {
+        const db = new ThoughtDB(keys.notion, ThoughtDB.proddbid)
+
+        const latest = db.getLatest(
+            moment.duration(2, 'month'),
+            10, ThoughtType.translation)
+
+        let i = 0
+        const entries = []
+        for await (let l of latest) {
+            // console.log(l) //?
+            i++
+            entries.push(l);
+        }
+
+        const language = 'es'
+
+        const msg = `The user has requested the following language translations this week. Create an interesting 
+        story or article that can be used by the user to review what was learned this week. Below is a list of the
+        requested translations. Important notes:
+        1. Write your article in the following target language: ${language}
+        2. Make it clear which phrases are being revised.
+        
+        The translation requests are:
+            ${entries.map(e => '* ' + e).join('\n')}`
+
+        const c = new ChatGPT.Client({
+            apiKey: keys.openai,
+            systemPrompt:
+                `You are a language learning support unit.`
+        });
+
+        const m = await c.say(msg);
+
+        console.log(entries, m); //?
+    })
+
+    it('getLatest.Note', async () => {
         const db = new ThoughtDB(keys.notion, ThoughtDB.proddbid)
 
         const latest = db.getLatest(moment.duration(2, 'month'))

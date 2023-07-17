@@ -17,25 +17,20 @@ const moment_1 = __importDefault(require("moment"));
 const ChatGPT_1 = require("./ChatGPT");
 describe('notion', () => {
     jest.setTimeout(20000);
-    it.only('getLatest', async () => {
+    it.only('getLatest.Translation', async () => {
         var _a, e_1, _b, _c;
         const db = new notion_1.ThoughtDB(keys_1.default.notion, notion_1.ThoughtDB.proddbid);
-        const latest = db.getLatest(moment_1.default.duration(2, 'month'));
+        const latest = db.getLatest(moment_1.default.duration(2, 'month'), 10, notion_1.ThoughtType.translation);
         let i = 0;
         const entries = [];
         try {
-            for (var _d = true, latest_1 = __asyncValues(latest), latest_1_1; latest_1_1 = await latest_1.next(), _a = latest_1_1.done, !_a;) {
+            for (var _d = true, latest_1 = __asyncValues(latest), latest_1_1; latest_1_1 = await latest_1.next(), _a = latest_1_1.done, !_a; _d = true) {
                 _c = latest_1_1.value;
                 _d = false;
-                try {
-                    let l = _c;
-                    // console.log(l) //?
-                    i++;
-                    entries.push(l);
-                }
-                finally {
-                    _d = true;
-                }
+                let l = _c;
+                // console.log(l) //?
+                i++;
+                entries.push(l);
             }
         }
         catch (e_1_1) { e_1 = { error: e_1_1 }; }
@@ -44,6 +39,45 @@ describe('notion', () => {
                 if (!_d && !_a && (_b = latest_1.return)) await _b.call(latest_1);
             }
             finally { if (e_1) throw e_1.error; }
+        }
+        const language = 'es';
+        const msg = `The user has requested the following language translations this week. Create an interesting 
+        story or article that can be used by the user to review what was learned this week. Below is a list of the
+        requested translations. Important notes:
+        1. Write your article in the following target language: ${language}
+        2. Make it clear which phrases are being revised.
+        
+        The translation requests are:
+            ${entries.map(e => '* ' + e).join('\n')}`;
+        const c = new ChatGPT_1.ChatGPT.Client({
+            apiKey: keys_1.default.openai,
+            systemPrompt: `You are a language learning support unit.`
+        });
+        const m = await c.say(msg);
+        console.log(entries, m); //?
+    });
+    it('getLatest.Note', async () => {
+        var _a, e_2, _b, _c;
+        const db = new notion_1.ThoughtDB(keys_1.default.notion, notion_1.ThoughtDB.proddbid);
+        const latest = db.getLatest(moment_1.default.duration(2, 'month'));
+        let i = 0;
+        const entries = [];
+        try {
+            for (var _d = true, latest_2 = __asyncValues(latest), latest_2_1; latest_2_1 = await latest_2.next(), _a = latest_2_1.done, !_a; _d = true) {
+                _c = latest_2_1.value;
+                _d = false;
+                let l = _c;
+                // console.log(l) //?
+                i++;
+                entries.push(l);
+            }
+        }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (!_d && !_a && (_b = latest_2.return)) await _b.call(latest_2);
+            }
+            finally { if (e_2) throw e_2.error; }
         }
         const msg = `Here are the entries that were bullet journaled this week,
         provide your thoughts and insights. Direct your responses to ME, the person who wrote the journal entries.

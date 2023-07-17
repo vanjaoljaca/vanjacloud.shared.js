@@ -26,7 +26,7 @@ var ThoughtType;
 (function (ThoughtType) {
     ThoughtType["note"] = "\uD83D\uDC3F\uFE0F";
     ThoughtType["translation"] = "\uD83D\uDC7B";
-})(ThoughtType = exports.ThoughtType || (exports.ThoughtType = {}));
+})(ThoughtType || (exports.ThoughtType = ThoughtType = {}));
 class ThoughtDB {
     constructor(key, dbid) {
         this.notion = new client_1.Client({

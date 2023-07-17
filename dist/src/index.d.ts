@@ -1,6 +1,7 @@
 export { ThoughtDB } from './notion';
 export { AzureTranslate } from "./AzureTranslate";
 export { ChatGPT } from "./ChatGPT";
+export { LanguageTeacher } from "./LanguageTeacher";
 declare const _default: {
     Keys: {
         openai: any;
