@@ -158,16 +158,16 @@ describe('Ukulele', () => {
     it.only('works', async () => {
         const barre = 2;
         let testSet = getFretNotes(barre, barre + 4);
-        // console.log('t', testSet) //?
+
 
         let prep = testSet.map(notes => getScaleDegrees(notes, 'C'))
         let r = findChords(prep);
-        let str = "| Root | Notes | Frets | Open Chord Shape | Frets (Barre) |\n";
+        let str = "| Root | Frets | Notes | Open Chord Shape | Frets (Barre) |\n";
         str += "|------|-------|-------|------------------|---------------|\n";
         for (let i of r) {
             let frets = i[2].map(z => z + barre);
             let openChordName = getOpenChordPosition(frets);
-            str += `| ${i[0]} | ${i[1]} | ${frets.join(' ')} | ${openChordName} | ${i[2].join(' ')} |\n`;
+            str += `| ${i[0]} | ${frets.join(' ')} | ${i[1]} | ${openChordName} | ${i[2].join(' ')} |\n`;
         }
         console.log(str);
     })

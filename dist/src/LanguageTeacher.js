@@ -61,7 +61,7 @@ class LanguageTeacher {
             finally { if (e_1) throw e_1.error; }
         }
         const translations = entries.map(e => e.translations.find((t) => t.to == "es").text);
-        console.log('got translations', i, translations);
+        console.log('got translations', i, entries, translations);
         return this.retrospective2(translations);
     }
     async retrospective2(translations) {

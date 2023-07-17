@@ -29,7 +29,7 @@ export class LanguageTeacher {
 
         const translations = entries.map(e => e.translations.find((t: any) => t.to == "es")!.text)
 
-        console.log('got translations', i, translations)
+        console.log('got translations', i, entries, translations)
         return this.retrospective2(translations)
     }
 
