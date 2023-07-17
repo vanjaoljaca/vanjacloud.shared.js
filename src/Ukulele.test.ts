@@ -41,7 +41,7 @@ function getScaleDegrees(notes: Note[], key: Note): ScaleDegree[] {
     return scaleDegrees;
 }
 
-type UkulelePosition = [ScaleDegree, ScaleDegree[], number[], UkuleleChordShape];
+type UkulelePosition = [ScaleDegree, ScaleDegree[], number[]];
 
 function findChords(availables: ScaleDegree[][]): UkulelePosition[] {
     let allFretCombinations = generateFretCombinations(availables);
