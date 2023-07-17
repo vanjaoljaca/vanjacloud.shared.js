@@ -63,6 +63,8 @@ export class ThoughtDB {
         let now = moment();
         let comparisonDate = moment().subtract(duration);
 
+        console.log('comparisonDate', comparisonDate)
+
         while (count < max && (res == null || res.has_more)) {
             res = await this.notion.databases.query({
                 database_id: this.dbid,
@@ -94,16 +96,20 @@ export class ThoughtDB {
                 }
             })
 
+            console.log('notion res', res)
             for (const result of (res.results as any[])) {
 
                 let createdTime = moment(result.created_time);
                 if (createdTime.isBefore(comparisonDate)) {
                     // 🤷‍ notion doesn't respect filter ...
+                    console.log('date', createdTime, comparisonDate)
                     continue
                 }
 
-                if (result.icon == null || result.icon.type != 'emoji' || result.icon.emoji != type)
+                if (result.icon == null || result.icon.type != 'emoji' || result.icon.emoji != type) {
+                    console.log('emoji', result.icon, result.icon?.emoji, type)
                     continue
+                }
 
                 let props = result.properties;
                 let data = props.Name || props.Note // nfi why...

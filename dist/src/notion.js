@@ -58,6 +58,7 @@ class ThoughtDB {
         return text;
     }
     getLatest(duration, max, type) {
+        var _a;
         return __asyncGenerator(this, arguments, function* getLatest_1() {
             type = type || ThoughtType.note;
             const page_size = 30;
@@ -66,6 +67,7 @@ class ThoughtDB {
             let res;
             let now = (0, moment_1.default)();
             let comparisonDate = (0, moment_1.default)().subtract(duration);
+            console.log('comparisonDate', comparisonDate);
             while (count < max && (res == null || res.has_more)) {
                 res = yield __await(this.notion.databases.query({
                     database_id: this.dbid,
@@ -96,14 +98,18 @@ class ThoughtDB {
                         // ]
                     }
                 }));
+                console.log('notion res', res);
                 for (const result of res.results) {
                     let createdTime = (0, moment_1.default)(result.created_time);
                     if (createdTime.isBefore(comparisonDate)) {
                         // 🤷‍ notion doesn't respect filter ...
+                        console.log('date', createdTime, comparisonDate);
                         continue;
                     }
-                    if (result.icon == null || result.icon.type != 'emoji' || result.icon.emoji != type)
+                    if (result.icon == null || result.icon.type != 'emoji' || result.icon.emoji != type) {
+                        console.log('emoji', result.icon, (_a = result.icon) === null || _a === void 0 ? void 0 : _a.emoji, type);
                         continue;
+                    }
                     let props = result.properties;
                     let data = props.Name || props.Note; // nfi why...
                     yield yield __await(data.title[0].plain_text);
