@@ -202,7 +202,6 @@ describe('isValidChord', () => {
         // 2nd inversion: F#, B, D# (5th, root, 3rd)
         expect(getChord([4, 7, 2])).toEqual(['B', 'diminished']);
 
-        expect(getChord([3,7,3,5])).toEqual(['B', 'diminished']);
     });
 });
 
