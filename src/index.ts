@@ -1,5 +1,5 @@
 import keys from '../keys';
-export { ThoughtDB } from './notion';
+export { ThoughtDB } from './ThoughtDB';
 export { AzureTranslate } from "./AzureTranslate";
 export { ChatGPT } from "./ChatGPT";
 export { LanguageTeacher } from "./LanguageTeacher";

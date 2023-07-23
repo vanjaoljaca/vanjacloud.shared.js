@@ -8,7 +8,8 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "play": "tsc && node dist/play.js"
+    "play": "tsc && node dist/play.js",
+    "dev": "ts-node dev"
   },
   "dependencies": {
     "@babel/runtime": "^7.22.6",
@@ -16,6 +17,7 @@
     "@types/uuid": "^9.0.0",
     "axios": "^1.3.2",
     "exponential-backoff": "^3.1.0",
+    "ix": "^5.0.0",
     "moment": "^2.29.4",
     "openai": "^4.0.0-beta.4",
     "playwright": "^1.29.2",

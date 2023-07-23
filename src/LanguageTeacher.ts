@@ -1,5 +1,5 @@
 import * as moment from "moment/moment";
-import { ThoughtDB, ThoughtType } from "./notion";
+import { ThoughtDB, ThoughtType } from "./ThoughtDB";
 import { ChatGPT } from "./ChatGPT";
 import keys from "../keys";
 

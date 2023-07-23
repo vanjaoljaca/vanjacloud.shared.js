@@ -32,7 +32,7 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LanguageTeacher = void 0;
 const moment = __importStar(require("moment/moment"));
-const notion_1 = require("./notion");
+const ThoughtDB_1 = require("./ThoughtDB");
 class LanguageTeacher {
     constructor(chat, db) {
         this.chat = chat;
@@ -40,7 +40,7 @@ class LanguageTeacher {
     }
     async retrospective() {
         var _a, e_1, _b, _c;
-        const latest = this.db.getLatest(moment.duration(2, 'month'), 10, notion_1.ThoughtType.translation);
+        const latest = this.db.getLatest(moment.duration(2, 'month'), 10, ThoughtDB_1.ThoughtType.translation);
         let i = 0;
         const entries = [];
         try {

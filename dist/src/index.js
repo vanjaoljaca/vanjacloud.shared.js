@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LanguageTeacher = exports.ChatGPT = exports.AzureTranslate = exports.ThoughtDB = void 0;
 const keys_1 = __importDefault(require("../keys"));
-var notion_1 = require("./notion");
-Object.defineProperty(exports, "ThoughtDB", { enumerable: true, get: function () { return notion_1.ThoughtDB; } });
+var ThoughtDB_1 = require("./ThoughtDB");
+Object.defineProperty(exports, "ThoughtDB", { enumerable: true, get: function () { return ThoughtDB_1.ThoughtDB; } });
 var AzureTranslate_1 = require("./AzureTranslate");
 Object.defineProperty(exports, "AzureTranslate", { enumerable: true, get: function () { return AzureTranslate_1.AzureTranslate; } });
 var ChatGPT_1 = require("./ChatGPT");

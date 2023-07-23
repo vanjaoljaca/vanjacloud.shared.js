@@ -1,6 +1,6 @@
 // testable-http-triggered-function/__tests__/index.test.ts
 
-import { ThoughtDB, ThoughtType } from "./notion";
+import { ThoughtDB, ThoughtType } from "./ThoughtDB";
 import keys from '../keys'
 import moment from 'moment'
 import { ChatGPT } from "./ChatGPT";
@@ -76,5 +76,18 @@ describe('notion', () => {
         // const m = await c.say(msg);
         //
         // console.log(m); //?
+    })
+
+    it.only('getLatest.Note', async () => {
+        const db = new ThoughtDB(keys.notion, ThoughtDB.proddbid)
+
+        const all = await db.get({ limit: 10 }) //?
+        let i = 0
+        const entries = []
+        // for await (let l of all) {
+        //     // console.log(l) //?
+        //     i++
+        //     entries.push(l);
+        // }
     })
 })

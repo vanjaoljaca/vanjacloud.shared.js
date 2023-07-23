@@ -2,6 +2,12 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "command": "yarn dev",
+      "name": "Run dev",
+      "request": "launch",
+      "type": "node-terminal"
+    },
+    {
       "command": "yarn play",
       "name": "Run play",
       "request": "launch",

@@ -1,4 +1,4 @@
-import { ThoughtDB } from "./notion";
+import { ThoughtDB } from "./ThoughtDB";
 import { ChatGPT } from "./ChatGPT";
 export declare class LanguageTeacher {
     private chat;

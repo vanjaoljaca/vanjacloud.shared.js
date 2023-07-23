@@ -50,3 +50,5 @@ __azurite_db*__.json
 quokka.ts
 
 temp/
+
+data/
