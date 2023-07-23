@@ -19,6 +19,8 @@ export class NotionDB {
 
 export class ThoughtDB {
 
+    static ThoughtType = ThoughtType;
+
     static proddbid = '1ccbf2c452d6453d94bc462a8c83c200'
     static testdbid = '4ef4fb0714c9441d94b06c826e74d5d3'
 
@@ -30,32 +32,6 @@ export class ThoughtDB {
             auth: key
         })
         this.dbid = dbid;
-    }
-
-    async saveIt(text: string) {
-
-        console.log('saving', text)
-
-        const response = await this.notion.pages.create({
-            icon: {
-                type: "emoji",
-                emoji: ThoughtType.note
-            },
-            parent: {
-                type: "database_id",
-                database_id: this.dbid
-            },
-            properties: {
-                title: [
-                    {
-                        text: {
-                            content: text
-                        }
-                    }
-                ]
-            }
-        });
-        return text;
     }
 
     async saveIt2(text: string, categoryEmoji?: string, tags?: any[]) {
@@ -91,7 +67,7 @@ export class ThoughtDB {
                 }
             }
         });
-        return text;
+        return response;
     }
 
     get(z?: {

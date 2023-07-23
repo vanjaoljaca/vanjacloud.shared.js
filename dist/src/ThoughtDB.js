@@ -61,29 +61,6 @@ class ThoughtDB {
         });
         this.dbid = dbid;
     }
-    async saveIt(text) {
-        console.log('saving', text);
-        const response = await this.notion.pages.create({
-            icon: {
-                type: "emoji",
-                emoji: ThoughtType.note
-            },
-            parent: {
-                type: "database_id",
-                database_id: this.dbid
-            },
-            properties: {
-                title: [
-                    {
-                        text: {
-                            content: text
-                        }
-                    }
-                ]
-            }
-        });
-        return text;
-    }
     async saveIt2(text, categoryEmoji, tags) {
         tags = tags || [];
         categoryEmoji = categoryEmoji || '🐿️';
@@ -117,7 +94,7 @@ class ThoughtDB {
                 }
             }
         });
-        return text;
+        return response;
     }
     get(z) {
         z = z || {};
@@ -282,6 +259,7 @@ class ThoughtDB {
     }
 }
 exports.ThoughtDB = ThoughtDB;
+ThoughtDB.ThoughtType = ThoughtType;
 ThoughtDB.proddbid = '1ccbf2c452d6453d94bc462a8c83c200';
 ThoughtDB.testdbid = '4ef4fb0714c9441d94b06c826e74d5d3';
 // let dbpage = await this.notion.pages.retrieve({

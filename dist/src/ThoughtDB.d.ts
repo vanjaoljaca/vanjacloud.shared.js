@@ -10,13 +10,13 @@ export declare enum ThoughtType {
 export declare class NotionDB {
 }
 export declare class ThoughtDB {
+    static ThoughtType: typeof ThoughtType;
     static proddbid: string;
     static testdbid: string;
     dbid: string;
     notion: Client;
     constructor(key: string, dbid: string);
-    saveIt(text: string): Promise<string>;
-    saveIt2(text: string, categoryEmoji?: string, tags?: any[]): Promise<string>;
+    saveIt2(text: string, categoryEmoji?: string, tags?: any[]): Promise<import("@notionhq/client/build/src/api-endpoints").CreatePageResponse>;
     get(z?: {
         filter?: {
             type?: ThoughtType;
