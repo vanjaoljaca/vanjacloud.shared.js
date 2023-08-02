@@ -1,35 +1,59 @@
 // fs doesnt work in expo.. sigh
 // https://docs.expo.dev/versions/latest/sdk/filesystem/
 
+// readFileSync is runtime, require is at compile time. need to standardise this
+// this whole file is so bad pls fix
+
 let values: any;
-try {
-    const fs = require('fs');
-    let settingsJson;
-    try {
-        settingsJson = fs.readFileSync('local.settings.json', 'utf8');
-    } catch (err) {
-        console.info('Could not load local.settings.json file. Falling back to ../local.settings.json variables.');
-        settingsJson = fs.readFileSync('../vanjacloudjs/local.settings.json', 'utf8');
+
+function loadSettingsFile() {
+    if (typeof process !== 'undefined' && process?.versions?.electron == undefined) {
+        // no fs in electron, error is annoying
+        return null;
     }
-    const settings = JSON.parse(settingsJson);
-    values = settings.Values;
-} catch (err) {
+
+    return null;
+    // const fs = require('fs');
+    // let settingsJson;
+    // try {
+    //     settingsJson = fs.readFileSync('local.settings.json', 'utf8');
+    // } catch (err) {
+    //     console.info('Could not load local.settings.json file. Trying ../vanacloud.azurefunc/local.settings.json variables.');
+    //     try {
+    //         settingsJson = fs.readFileSync('../vanjacloud.azurefunc/local.settings.json', 'utf8');
+    //     } catch (err) {
+    //         console.info('also bad ../vanacloud.azurefunc/local.settings.json variables.');
+    //         return null;
+    //     }
+    //     const settings = JSON.parse(settingsJson);
+    //     return settings.Values;
+    // }
+}
+
+function loadFromCompileTimeKeys() {
+    if (typeof process !== 'undefined' && process?.versions?.electron == undefined) {
+        return null;
+    }
+
+    return null;
+    // try {
+    //     return require('../../keys.json');
+    // } catch (err) {
+    //     console.info('Could not load ../keys.json file.');
+    //     return null;
+    // }
+}
+
+values = loadSettingsFile();
+if (values == null) {
     console.info('Could not load settings file. Falling back to ../keys.json variables.');
 
-    try {
-        values = require('../keys.json');
-    } catch (err) {
+    values = loadFromCompileTimeKeys();
+    if (values == null) {
         console.info('Could not load ../keys.json file. Falling back to env variables.');
 
         try {
-            values = {
-                OPENAI_KEY: process.env.OPENAI_KEY,
-                NOTION_SECRET: process.env.NOTION_SECRET,
-                SPOTIFY_CLIENTID: process.env.SPOTIFY_CLIENTID,
-                SPOTIFY_CLIENTSECRET: process.env.SPOTIFY_CLIENTSECRET,
-                AZURE_TRANSLATE_KEY: process.env.AZURE_TRANSLATE_KEY,
-                HUGGINGFACE_KEY: process.env.HUGGINGFACE_KEY
-            }
+            values = loadFromProcessEnv()
             console.info('Loaded env variables:',
                 Object.keys(values).map(k => `${k}: ${values[k]?.length}`));
         } catch (err) {
@@ -58,3 +82,17 @@ export default {
     },
     huggingface: values.HUGGINGFACE_KEY
 };
+function loadFromProcessEnv(): any {
+    if (typeof process === 'undefined')
+        return null;
+
+    return {
+        OPENAI_KEY: process.env.OPENAI_KEY,
+        NOTION_SECRET: process.env.NOTION_SECRET,
+        SPOTIFY_CLIENTID: process.env.SPOTIFY_CLIENTID,
+        SPOTIFY_CLIENTSECRET: process.env.SPOTIFY_CLIENTSECRET,
+        AZURE_TRANSLATE_KEY: process.env.AZURE_TRANSLATE_KEY,
+        HUGGINGFACE_KEY: process.env.HUGGINGFACE_KEY
+    };
+}
+
