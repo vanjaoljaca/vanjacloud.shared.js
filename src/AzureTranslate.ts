@@ -1,20 +1,34 @@
 import axios from "axios";
 
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from "uuid";
+
+export interface Translation {
+  text: string;
+  to: string;
+}
+
+interface AzureTranslateOpts {
+  endpoint?: string,
+  location?: string,
+  traceIdGenerator?: () => string
+}
 
 export class AzureTranslate {
+
+  private readonly endpoint: string
+  private readonly location: string
   private readonly traceIdGenerator: () => string
 
-  constructor(private readonly key: string,
-              private readonly endpoint?: string,
-              private readonly location?: string,
-              traceIdGenerator?: () => string) {
-    this.endpoint = endpoint || "https://api.cognitive.microsofttranslator.com"
-    this.location = location || "westus3"
-    this.traceIdGenerator = traceIdGenerator || uuidv4;
+  constructor(
+    private readonly key: string,
+    opts?: AzureTranslateOpts) {
+
+    this.endpoint = opts?.endpoint || "https://api.cognitive.microsofttranslator.com"
+    this.location = opts?.location || "westus3"
+    this.traceIdGenerator = opts?.traceIdGenerator || uuidv4;
   }
 
-  async translate(text: string, opts?: { to?: string[], from?: string, traceId?: string }) {
+  async translate(text: string, opts?: { to?: string[], from?: string, traceId?: string }): Promise<Translation[]> {
 
     const defaultTo = ['en', 'de', 'es', 'sr-Cyrl-BA'];
 
@@ -39,6 +53,7 @@ export class AzureTranslate {
       }],
       responseType: 'json'
     });
-    return r.data[0].translations as { text: string, to: string }[];
+
+    return r.data[0].translations as Translation[];
   }
 }

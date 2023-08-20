@@ -1,6 +1,7 @@
 import { Client } from "@notionhq/client";
 import { AsyncIterableX as AsyncIx } from 'ix/asynciterable';
 import moment from "moment";
+import { Translation } from "./AzureTranslate";
 export declare class TranslationDB {
 }
 export declare enum ThoughtType {
@@ -16,6 +17,7 @@ export declare class ThoughtDB {
     dbid: string;
     notion: Client;
     constructor(key: string, dbid: string);
+    saveTranslation(translations: Translation[], preferredLanguage?: string): Promise<import("@notionhq/client/build/src/api-endpoints").CreatePageResponse>;
     saveIt2(text: string, categoryEmoji?: string, tags?: any[]): Promise<import("@notionhq/client/build/src/api-endpoints").CreatePageResponse>;
     get(z?: {
         filter?: {

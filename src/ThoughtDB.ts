@@ -3,6 +3,7 @@ import { Client } from "@notionhq/client"
 import { AsyncIterableX as AsyncIx } from 'ix/asynciterable';
 import moment from "moment"
 import * as Ix from 'ix';
+import { Translation } from "./AzureTranslate";
 
 export class TranslationDB {
 
@@ -32,6 +33,14 @@ export class ThoughtDB {
             auth: key
         })
         this.dbid = dbid;
+    }
+
+    async saveTranslation(translations: Translation[], preferredLanguage?: string) {
+        preferredLanguage = preferredLanguage || 'unknown';
+        const r = await this.saveIt2(JSON.stringify({ translations, preferredLanguage }),
+            ThoughtType.translation,
+            ['#translation', `#translation:${preferredLanguage}`]);
+        return r;
     }
 
     async saveIt2(text: string, categoryEmoji?: string, tags?: any[]) {

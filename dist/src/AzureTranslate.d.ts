@@ -1,15 +1,22 @@
+export interface Translation {
+    text: string;
+    to: string;
+}
+interface AzureTranslateOpts {
+    endpoint?: string;
+    location?: string;
+    traceIdGenerator?: () => string;
+}
 export declare class AzureTranslate {
     private readonly key;
-    private readonly endpoint?;
-    private readonly location?;
+    private readonly endpoint;
+    private readonly location;
     private readonly traceIdGenerator;
-    constructor(key: string, endpoint?: string | undefined, location?: string | undefined, traceIdGenerator?: () => string);
+    constructor(key: string, opts?: AzureTranslateOpts);
     translate(text: string, opts?: {
         to?: string[];
         from?: string;
         traceId?: string;
-    }): Promise<{
-        text: string;
-        to: string;
-    }[]>;
+    }): Promise<Translation[]>;
 }
+export {};

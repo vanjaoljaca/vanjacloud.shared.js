@@ -61,6 +61,11 @@ class ThoughtDB {
         });
         this.dbid = dbid;
     }
+    async saveTranslation(translations, preferredLanguage) {
+        preferredLanguage = preferredLanguage || 'unknown';
+        const r = await this.saveIt2(JSON.stringify({ translations, preferredLanguage }), ThoughtType.translation, ['#translation', `#translation:${preferredLanguage}`]);
+        return r;
+    }
     async saveIt2(text, categoryEmoji, tags) {
         tags = tags || [];
         categoryEmoji = categoryEmoji || '🐿️';

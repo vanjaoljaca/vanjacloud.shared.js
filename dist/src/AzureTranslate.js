@@ -7,13 +7,11 @@ exports.AzureTranslate = void 0;
 const axios_1 = __importDefault(require("axios"));
 const uuid_1 = require("uuid");
 class AzureTranslate {
-    constructor(key, endpoint, location, traceIdGenerator) {
+    constructor(key, opts) {
         this.key = key;
-        this.endpoint = endpoint;
-        this.location = location;
-        this.endpoint = endpoint || "https://api.cognitive.microsofttranslator.com";
-        this.location = location || "westus3";
-        this.traceIdGenerator = traceIdGenerator || uuid_1.v4;
+        this.endpoint = (opts === null || opts === void 0 ? void 0 : opts.endpoint) || "https://api.cognitive.microsofttranslator.com";
+        this.location = (opts === null || opts === void 0 ? void 0 : opts.location) || "westus3";
+        this.traceIdGenerator = (opts === null || opts === void 0 ? void 0 : opts.traceIdGenerator) || uuid_1.v4;
     }
     async translate(text, opts) {
         const defaultTo = ['en', 'de', 'es', 'sr-Cyrl-BA'];
