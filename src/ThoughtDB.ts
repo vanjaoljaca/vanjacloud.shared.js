@@ -18,6 +18,8 @@ export class NotionDB {
 
 }
 
+//https://docs.mem.ai/docs/
+
 export class ThoughtDB {
 
     static ThoughtType = ThoughtType;

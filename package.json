@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.22.6",
+    "@mem-labs/mem-node": "^0.1.1",
     "@notionhq/client": "^2.2.3",
     "@types/uuid": "^9.0.0",
     "axios": "^1.3.2",
