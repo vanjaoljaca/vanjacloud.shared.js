@@ -9,5 +9,6 @@ declare const _default: {
         translate: any;
     };
     huggingface: any;
+    mem: any;
 };
 export default _default;

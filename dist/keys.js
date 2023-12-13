@@ -59,7 +59,8 @@ if (values == null) {
                 SPOTIFY_CLIENTID: undefined,
                 SPOTIFY_CLIENTSECRET: undefined,
                 AZURE_TRANSLATE_KEY: undefined,
-                HUGGINGFACE_KEY: undefined
+                HUGGINGFACE_KEY: undefined,
+                MEM_KEY: undefined
             };
         }
     }
@@ -74,7 +75,8 @@ exports.default = {
     azure: {
         translate: values.AZURE_TRANSLATE_KEY
     },
-    huggingface: values.HUGGINGFACE_KEY
+    huggingface: values.HUGGINGFACE_KEY,
+    mem: values.MEM_KEY
 };
 function loadFromProcessEnv() {
     if (typeof process === 'undefined')
@@ -85,7 +87,8 @@ function loadFromProcessEnv() {
         SPOTIFY_CLIENTID: process.env.SPOTIFY_CLIENTID,
         SPOTIFY_CLIENTSECRET: process.env.SPOTIFY_CLIENTSECRET,
         AZURE_TRANSLATE_KEY: process.env.AZURE_TRANSLATE_KEY,
-        HUGGINGFACE_KEY: process.env.HUGGINGFACE_KEY
+        HUGGINGFACE_KEY: process.env.HUGGINGFACE_KEY,
+        MEM_KEY: process.env.MEM_KEY
     };
 }
 //# sourceMappingURL=keys.js.map

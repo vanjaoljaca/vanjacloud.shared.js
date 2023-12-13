@@ -50,10 +50,11 @@ var ThoughtType;
 (function (ThoughtType) {
     ThoughtType["note"] = "\uD83D\uDC3F\uFE0F";
     ThoughtType["translation"] = "\uD83D\uDC7B";
-})(ThoughtType || (exports.ThoughtType = ThoughtType = {}));
+})(ThoughtType = exports.ThoughtType || (exports.ThoughtType = {}));
 class NotionDB {
 }
 exports.NotionDB = NotionDB;
+//https://docs.mem.ai/docs/
 class ThoughtDB {
     constructor(key, dbid) {
         this.notion = new client_1.Client({

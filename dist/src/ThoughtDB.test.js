@@ -24,13 +24,18 @@ describe('notion', () => {
         let i = 0;
         const entries = [];
         try {
-            for (var _d = true, latest_1 = __asyncValues(latest), latest_1_1; latest_1_1 = await latest_1.next(), _a = latest_1_1.done, !_a; _d = true) {
+            for (var _d = true, latest_1 = __asyncValues(latest), latest_1_1; latest_1_1 = await latest_1.next(), _a = latest_1_1.done, !_a;) {
                 _c = latest_1_1.value;
                 _d = false;
-                let l = _c;
-                // console.log(l) //?
-                i++;
-                entries.push(l);
+                try {
+                    let l = _c;
+                    // console.log(l) //?
+                    i++;
+                    entries.push(l);
+                }
+                finally {
+                    _d = true;
+                }
             }
         }
         catch (e_1_1) { e_1 = { error: e_1_1 }; }
@@ -63,13 +68,18 @@ describe('notion', () => {
         let i = 0;
         const entries = [];
         try {
-            for (var _d = true, latest_2 = __asyncValues(latest), latest_2_1; latest_2_1 = await latest_2.next(), _a = latest_2_1.done, !_a; _d = true) {
+            for (var _d = true, latest_2 = __asyncValues(latest), latest_2_1; latest_2_1 = await latest_2.next(), _a = latest_2_1.done, !_a;) {
                 _c = latest_2_1.value;
                 _d = false;
-                let l = _c;
-                // console.log(l) //?
-                i++;
-                entries.push(l);
+                try {
+                    let l = _c;
+                    // console.log(l) //?
+                    i++;
+                    entries.push(l);
+                }
+                finally {
+                    _d = true;
+                }
             }
         }
         catch (e_2_1) { e_2 = { error: e_2_1 }; }
