@@ -1,0 +1,1 @@
+{"version":3,"file":"LanguageTeacher.d.ts","sourceRoot":"","sources":["../../src/LanguageTeacher.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,SAAS,EAAe,MAAM,aAAa,CAAC;AACrD,OAAO,EAAE,OAAO,EAAE,MAAM,WAAW,CAAC;AAGpC,qBAAa,eAAe;IAGZ,OAAO,CAAC,IAAI;IACZ,OAAO,CAAC,EAAE,CAAC;gBADH,IAAI,EAAE,OAAO,CAAC,MAAM,EACpB,EAAE,CAAC,uBAAW;IAKrB,aAAa;IAqBb,cAAc,CAAC,YAAY,EAAE,MAAM,EAAE;CAiBrD"}

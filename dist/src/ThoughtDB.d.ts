@@ -8,8 +8,6 @@ export declare enum ThoughtType {
     note = "\uD83D\uDC3F\uFE0F",
     translation = "\uD83D\uDC7B"
 }
-export declare class NotionDB {
-}
 export declare class ThoughtDB {
     static ThoughtType: typeof ThoughtType;
     static proddbid: string;
@@ -18,7 +16,7 @@ export declare class ThoughtDB {
     notion: Client;
     constructor(key: string, dbid: string);
     saveTranslation(translations: Translation[], preferredLanguage?: string): Promise<import("@notionhq/client/build/src/api-endpoints").CreatePageResponse>;
-    saveIt2(text: string, categoryEmoji?: string, tags?: any[]): Promise<import("@notionhq/client/build/src/api-endpoints").CreatePageResponse>;
+    saveIt2(text: string, categoryEmoji?: string, tags?: any[], opts?: {}): Promise<import("@notionhq/client/build/src/api-endpoints").CreatePageResponse>;
     get(z?: {
         filter?: {
             type?: ThoughtType;
@@ -57,3 +55,4 @@ export declare class ThoughtDB {
     }): Promise<import("@notionhq/client/build/src/api-endpoints").UpdatePageResponse>;
     getLatest(duration?: moment.Duration, max?: number, type?: ThoughtType): AsyncGenerator<any, void, unknown>;
 }
+//# sourceMappingURL=ThoughtDB.d.ts.map

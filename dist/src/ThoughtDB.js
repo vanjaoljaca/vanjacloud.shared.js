@@ -38,7 +38,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ThoughtDB = exports.NotionDB = exports.ThoughtType = exports.TranslationDB = void 0;
+exports.ThoughtDB = exports.ThoughtType = exports.TranslationDB = void 0;
 // https://developers.notion.com/reference/intro
 const client_1 = require("@notionhq/client");
 const moment_1 = __importDefault(require("moment"));
@@ -50,10 +50,7 @@ var ThoughtType;
 (function (ThoughtType) {
     ThoughtType["note"] = "\uD83D\uDC3F\uFE0F";
     ThoughtType["translation"] = "\uD83D\uDC7B";
-})(ThoughtType = exports.ThoughtType || (exports.ThoughtType = {}));
-class NotionDB {
-}
-exports.NotionDB = NotionDB;
+})(ThoughtType || (exports.ThoughtType = ThoughtType = {}));
 //https://docs.mem.ai/docs/
 class ThoughtDB {
     constructor(key, dbid) {
@@ -67,7 +64,7 @@ class ThoughtDB {
         const r = await this.saveIt2(JSON.stringify({ translations, preferredLanguage }), ThoughtType.translation, ['#translation', `#translation:${preferredLanguage}`]);
         return r;
     }
-    async saveIt2(text, categoryEmoji, tags) {
+    async saveIt2(text, categoryEmoji, tags, opts) {
         tags = tags || [];
         categoryEmoji = categoryEmoji || '🐿️';
         console.log('saving', text);

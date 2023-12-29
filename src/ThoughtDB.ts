@@ -14,13 +14,10 @@ export enum ThoughtType {
     translation = '👻'
 }
 
-export class NotionDB {
-
-}
-
 //https://docs.mem.ai/docs/
 
 export class ThoughtDB {
+
 
     static ThoughtType = ThoughtType;
 
@@ -28,7 +25,7 @@ export class ThoughtDB {
     static testdbid = '4ef4fb0714c9441d94b06c826e74d5d3'
 
     dbid: string;
-    notion: Client;
+    notion: Client; // todo: use NotionDB instead of notion client
 
     constructor(key: string, dbid: string) {
         this.notion = new Client({
@@ -45,7 +42,9 @@ export class ThoughtDB {
         return r;
     }
 
-    async saveIt2(text: string, categoryEmoji?: string, tags?: any[]) {
+    async saveIt2(text: string, categoryEmoji?: string, tags?: any[], opts?: {
+
+    }) {
         tags = tags || [];
         categoryEmoji = categoryEmoji || '🐿️';
         console.log('saving', text)

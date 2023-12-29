@@ -20,3 +20,4 @@ export declare class AzureTranslate {
     }): Promise<Translation[]>;
 }
 export {};
+//# sourceMappingURL=AzureTranslate.d.ts.map

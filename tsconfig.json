@@ -8,10 +8,12 @@
     "strict": true,
     "esModuleInterop": true,
     "declaration": true,
+    "declarationMap": true,
     "moduleResolution": "node"
   },
   "include": [
-    "src"
+    "src",
+    "../vanjacloud.ios/src/Lancher.ts"
   ],
   "exclude": [
     "node_modules",

@@ -25,3 +25,4 @@ export declare namespace ChatGPT {
     export {};
 }
 export {};
+//# sourceMappingURL=ChatGPT.d.ts.map

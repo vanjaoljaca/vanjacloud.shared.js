@@ -7,3 +7,4 @@ export declare class LanguageTeacher {
     retrospective(): Promise<string | null | undefined>;
     retrospective2(translations: string[]): Promise<string | null | undefined>;
 }
+//# sourceMappingURL=LanguageTeacher.d.ts.map

@@ -26,9 +26,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LanguageTeacher = exports.ChatGPT = exports.AzureTranslate = exports.Thought = void 0;
+exports.LanguageTeacher = exports.ChatGPT = exports.AzureTranslate = exports.Content = exports.Thought = void 0;
 const keys_1 = __importDefault(require("../keys"));
 exports.Thought = __importStar(require("./ThoughtDB"));
+exports.Content = __importStar(require("./ContentDB"));
 var AzureTranslate_1 = require("./AzureTranslate");
 Object.defineProperty(exports, "AzureTranslate", { enumerable: true, get: function () { return AzureTranslate_1.AzureTranslate; } });
 var ChatGPT_1 = require("./ChatGPT");
