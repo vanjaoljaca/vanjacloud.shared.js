@@ -27,7 +27,15 @@ export class ContentDB {
         date: Moment
     }) {
         tags = tags || [];
-        console.log('saving', title)
+        console.log('saving', title);
+
+        if (opts?.filePath) {
+            const existingPage = await this.get(opts?.filePath);
+            if (existingPage) {
+                throw new Error(`Page with filePath '${opts?.filePath}' already exists.`);
+            }
+        }
+
         const response = await this.notion.pages.create({
             // icon: {
             //     type: "emoji",
@@ -54,36 +62,146 @@ export class ContentDB {
                     date: {
                         start: (opts?.date || new Date()).toISOString()
                     }
+                },
+                FilePath: {
+                    url: opts?.filePath || null
                 }
             },
-            children: [
-                {
-                    object: 'block',
-                    type: 'paragraph',
-                    paragraph: {
-                        rich_text: [{
-                            type: 'text',
-                            text: {
-                                content: opts?.filePath || 'no file path'
-                            }
-                        }]
+            content: ContentDB.createTranscriptBlock(transcript) as any || []
+        });
+        console.log('ContentDB.save', response.id)
+        return response;
+    }
+
+
+    async update(filePath: string, opts?: {
+        title?: string,
+        tags?: string[],
+        transcript?: string,
+        date?: Moment
+    }) {
+        console.log('updating', filePath);
+
+        const page = await this.get(filePath);
+
+        if (!page) {
+            throw new Error('No record found with the specified filePath');
+        }
+
+        const pageId = page.id;
+
+        const properties: any = {};
+
+        if (opts?.title) {
+            properties.Name = {
+                title: [
+                    {
+                        text: {
+                            content: opts.title
+                        }
                     }
-                },
-                {
-                    object: 'block',
-                    type: 'paragraph',
-                    paragraph: {
-                        rich_text: [{
+                ]
+            };
+        }
+
+        if (opts?.tags) {
+            properties.Tags = {
+                multi_select: opts.tags.map(tag => ({ name: tag }))
+            };
+        }
+
+        if (opts?.date) {
+            properties.Date = {
+                date: {
+                    start: opts.date.toISOString()
+                }
+            };
+        }
+
+        let children;
+        if (opts?.transcript) {
+            children = ContentDB.createTranscriptBlock(opts.transcript);
+        }
+
+        const updateResponse = await this.notion.pages.update({
+            page_id: pageId,
+            properties,
+        });
+
+        this.notion.pages.update({
+            page_id: pageId,
+            archived: false,
+        });
+
+        const oldBlocks = await this.notion.blocks.children.list({
+            block_id: pageId
+        });
+
+        if (oldBlocks.results.length > 0) {
+            const blockIds = oldBlocks.results.map(block => block.id);
+            console.log('archiving', blockIds);
+            for (const blockId of blockIds) {
+                await this.notion.blocks.update({
+                    block_id: blockId,
+                    archived: true,
+                });
+            }
+        }
+
+        if (children) {
+            console.log('appending', children);
+            await this.notion.blocks.children.append({
+                block_id: pageId,
+                children: children as any
+            });
+        }
+        console.log('updated', updateResponse);
+        return updateResponse;
+    }
+
+    async get(filePath: string) {
+        const response = await this.notion.databases.query({
+            database_id: this.dbid,
+            filter: {
+                property: 'FilePath',
+                url: {
+                    equals: filePath
+                }
+            }
+        });
+
+        console.log('search', filePath, response)
+
+        if (response.results.length > 1) {
+            throw new Error(`More than one record found with the specified filePath: ${filePath}`);
+        }
+
+        if (response.results.length == 1) {
+            return response.results[0];
+        }
+
+        return null;
+    }
+
+    private static createTranscriptBlock(transcript?: string) {
+        if (!transcript) {
+            return null;
+        }
+        return [
+            {
+                object: 'block',
+                type: 'paragraph',
+                paragraph: {
+                    rich_text: [
+                        {
                             type: 'text',
                             text: {
                                 content: transcript || 'no transcript'
                             }
-                        }]
-                    }
+                        }
+                    ]
                 }
-            ]
-        });
-        console.log('saved', response)
-        return response;
+            }
+        ]
     }
 }

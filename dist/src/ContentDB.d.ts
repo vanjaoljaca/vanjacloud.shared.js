@@ -12,5 +12,13 @@ export declare class ContentDB {
         filePath?: string;
         date: Moment;
     }): Promise<import("@notionhq/client/build/src/api-endpoints").CreatePageResponse>;
+    update(filePath: string, opts?: {
+        title?: string;
+        tags?: string[];
+        transcript?: string;
+        date?: Moment;
+    }): Promise<import("@notionhq/client/build/src/api-endpoints").UpdatePageResponse>;
+    get(filePath: string): Promise<import("@notionhq/client/build/src/api-endpoints").PartialPageObjectResponse | null>;
+    private static createTranscriptBlock;
 }
 //# sourceMappingURL=ContentDB.d.ts.map
