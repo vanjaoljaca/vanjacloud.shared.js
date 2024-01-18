@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import keys from '../keys';
 export * as Thought from './ThoughtDB';
 export * as Content from './ContentDB';
@@ -6,5 +8,5 @@ export { ChatGPT } from "./ChatGPT";
 export { LanguageTeacher } from "./LanguageTeacher";
 
 export default {
-    Keys: keys // lol fix this dumbness
+  Keys: keys // lol fix this dumbness
 }
