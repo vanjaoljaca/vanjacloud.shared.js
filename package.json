@@ -26,6 +26,7 @@
     "playwright-chromium": "^1.29.2",
     "tonal": "^5.0.0",
     "ts-node": "^10.9.1",
+    "undici-types": "^6.4.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

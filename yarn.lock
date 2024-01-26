@@ -2755,6 +2755,11 @@ typescript@^4.0.0:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.5.tgz#095979f9bcc0d09da324d58d03ce8f8374cbe65a"
   integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
 
+undici-types@^6.4.0:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-6.4.0.tgz#59bd2eaa6928683466202f7f0df3ffbc76aa6a1a"
+  integrity sha512-hF4VKFUTypcLYImmZ13xVhjDaFhRlNULLUCOpm2ADKjuoqWpBFL1oXJXe2+hPq7aBv4v/FagI+MEDUNb8H9vHA==
+
 update-browserslist-db@^1.0.10:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/update-browserslist-db/-/update-browserslist-db-1.0.10.tgz#0f54b876545726f17d00cd9a2561e6dade943ff3"
