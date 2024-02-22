@@ -99,7 +99,7 @@ class ThoughtDB {
         });
         return response;
     }
-    get(z) {
+    getAll(z) {
         z = z || {};
         return Ix.AsyncIterable.from(this.getAllRaw(z.filter, z.opts, z.limit));
     }

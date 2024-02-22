@@ -99,7 +99,7 @@ describe('notion', () => {
     });
     it.only('getLatest.Note', async () => {
         const db = new ThoughtDB_1.ThoughtDB(keys_1.default.notion, ThoughtDB_1.ThoughtDB.proddbid);
-        const all = await db.get({ limit: 10 }); //?
+        const all = await db.getAll({ limit: 10 }); //?
         let i = 0;
         const entries = [];
         // for await (let l of all) {

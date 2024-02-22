@@ -17,7 +17,7 @@ export declare class ThoughtDB {
     constructor(key: string, dbid: string);
     saveTranslation(translations: Translation[], preferredLanguage?: string): Promise<import("@notionhq/client/build/src/api-endpoints").CreatePageResponse>;
     saveIt2(text: string, categoryEmoji?: string, tags?: any[], opts?: {}): Promise<import("@notionhq/client/build/src/api-endpoints").CreatePageResponse>;
-    get(z?: {
+    getAll(z?: {
         filter?: {
             type?: ThoughtType;
             after?: moment.Moment;
