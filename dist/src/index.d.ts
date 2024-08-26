@@ -3,6 +3,7 @@ export * as Content from './ContentDB';
 export { AzureTranslate } from "./AzureTranslate";
 export { ChatGPT } from "./ChatGPT";
 export { LanguageTeacher } from "./LanguageTeacher";
+export { VanjaCloudClient, Environment } from "./VanjaCloudClient";
 declare const _default: {
     Keys: {
         openai: any;

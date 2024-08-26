@@ -4,7 +4,8 @@ export * as Content from './ContentDB';
 export { AzureTranslate } from "./AzureTranslate";
 export { ChatGPT } from "./ChatGPT";
 export { LanguageTeacher } from "./LanguageTeacher";
+export { VanjaCloudClient, Environment } from "./VanjaCloudClient";
 
 export default {
-  Keys: keys // lol fix this dumbness
+    Keys: keys // lol fix this dumbness
 }
