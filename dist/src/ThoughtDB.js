@@ -50,7 +50,7 @@ var ThoughtType;
 (function (ThoughtType) {
     ThoughtType["note"] = "\uD83D\uDC3F\uFE0F";
     ThoughtType["translation"] = "\uD83D\uDC7B";
-})(ThoughtType || (exports.ThoughtType = ThoughtType = {}));
+})(ThoughtType = exports.ThoughtType || (exports.ThoughtType = {}));
 //https://docs.mem.ai/docs/
 class ThoughtDB {
     constructor(key, dbid) {

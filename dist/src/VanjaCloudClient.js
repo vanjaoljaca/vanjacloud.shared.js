@@ -9,7 +9,7 @@ var Environment;
 (function (Environment) {
     Environment["PROD"] = "https://remote.vanja.oljaca.me:3000";
     Environment["DEV"] = "http://localhost:3000";
-})(Environment || (exports.Environment = Environment = {}));
+})(Environment = exports.Environment || (exports.Environment = {}));
 class VanjaCloudClient {
     constructor(url) {
         this.url = url;
