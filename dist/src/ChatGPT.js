@@ -76,5 +76,5 @@ var ChatGPT;
         }
     }
     ChatGPT.Client = Client;
-})(ChatGPT = exports.ChatGPT || (exports.ChatGPT = {}));
+})(ChatGPT || (exports.ChatGPT = ChatGPT = {}));
 //# sourceMappingURL=ChatGPT.js.map
