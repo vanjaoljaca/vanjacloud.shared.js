@@ -104,7 +104,6 @@ class ThoughtDB {
         return Ix.AsyncIterable.from(this.getAllRaw(z.filter, z.opts, z.limit));
     }
     getAllRaw(filter, opts, limit) {
-        var _a;
         return __asyncGenerator(this, arguments, function* getAllRaw_1() {
             filter = filter || {};
             opts = opts || {};
@@ -145,16 +144,7 @@ class ThoughtDB {
                     // }
                 }));
                 for (const notionItem of res.results) {
-                    let props = notionItem.properties;
-                    let data = props.Name || props.Note; // (because I made a typo elsewhere...)
-                    yield yield __await({
-                        id: notionItem.id,
-                        tags: props.Tags == null ? [] : props.Tags.multi_select.map((x) => x.name),
-                        text: data.title[0].plain_text,
-                        type: (_a = notionItem.icon) === null || _a === void 0 ? void 0 : _a.emoji,
-                        date: (0, moment_1.default)(notionItem.created_time)
-                        // date: TODO!!!
-                    });
+                    yield yield __await(ThoughtDB.toThought(notionItem));
                     count++;
                 }
             }
@@ -204,7 +194,10 @@ class ThoughtDB {
         return response;
     }
     getLatest(duration, max, type) {
-        return __asyncGenerator(this, arguments, function* getLatest_1() {
+        return Ix.AsyncIterable.from(this.getLatestRaw(duration, max, type));
+    }
+    getLatestRaw(duration, max, type) {
+        return __asyncGenerator(this, arguments, function* getLatestRaw_1() {
             type = type || ThoughtType.note;
             const page_size = 30;
             max = max || page_size;
@@ -252,13 +245,24 @@ class ThoughtDB {
                     if (result.icon == null || result.icon.type != 'emoji' || result.icon.emoji != type) {
                         continue;
                     }
-                    let props = result.properties;
-                    let data = props.Name || props.Note; // nfi why...
-                    yield yield __await(data.title[0].plain_text);
+                    yield yield __await(ThoughtDB.toThought(result));
                     count++;
                 }
             }
         });
+    }
+    static toThought(notionItem) {
+        var _a;
+        let props = notionItem.properties;
+        let data = props.Name || props.Note; // (because I made a typo elsewhere...)
+        return {
+            id: notionItem.id,
+            tags: props.Tags == null ? [] : props.Tags.multi_select.map((x) => x.name),
+            text: data.title[0].plain_text,
+            type: (_a = notionItem.icon) === null || _a === void 0 ? void 0 : _a.emoji,
+            date: (0, moment_1.default)(notionItem.created_time)
+            // date: TODO!!!
+        };
     }
 }
 exports.ThoughtDB = ThoughtDB;

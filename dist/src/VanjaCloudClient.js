@@ -11,15 +11,15 @@ var Environment;
     Environment["DEV"] = "http://localhost:3000";
 })(Environment || (exports.Environment = Environment = {}));
 class VanjaCloudClient {
-    constructor(url) {
-        this.url = url;
+    constructor(endpoint) {
+        this.endpoint = endpoint;
     }
     async main(api, body) {
-        const response = await axios_1.default.post(`${this.url}/${api}`, body);
+        const response = await this.post(`${this.endpoint}/${api}`, body);
         return response.data;
     }
     async explain(language, text) {
-        const response = await axios_1.default.post(`${this.url}/explain`, {
+        const response = await this.post(`explain`, {
             request: "explain",
             target: language,
             text: text,
@@ -27,8 +27,8 @@ class VanjaCloudClient {
         return response.data;
     }
     async languageRetrospective(language, duration) {
-        console.log("this.url", this.url);
-        const response = await axios_1.default.post(`${this.url}/retrospective`, {
+        console.log("this.url", this.endpoint);
+        const response = await this.post(`retrospective`, {
             // target: language,
             prompt: `
                 Write a short story in language '${language}' and make it entertaining. It will be used for remembering past translation requests
@@ -39,8 +39,8 @@ class VanjaCloudClient {
         return response.data;
     }
     async retrospective(prompt, duration) {
-        console.log("this.url", this.url);
-        const response = await axios_1.default.post(`${this.url}/retrospective`, {
+        console.log("this.url", this.endpoint);
+        const response = await this.post(`retrospective`, {
             // target: language,
             prompt,
             duration,
@@ -54,22 +54,34 @@ class VanjaCloudClient {
             name: "recording.m4a",
             type: "audio/mp3", // todo
         });
-        const response = await fetch(`${this.url}/audio`, {
+        const response = await fetch(`audio`, {
             method: "POST",
             body: formData,
         });
         return response.ok;
     }
     async translate(text, opts) {
-        const defaultTo = ["en_US", "de", "es", "sr-Cyrl-BA"];
+        const defaultTo = ["en_US", "de", "es", "sr-Cyrl"];
         const request = {
             text: text,
             to: (opts === null || opts === void 0 ? void 0 : opts.to) || defaultTo,
             from: opts === null || opts === void 0 ? void 0 : opts.from,
             traceId: opts === null || opts === void 0 ? void 0 : opts.traceId,
         };
-        const response = await axios_1.default.post(`${this.url}/translate`, request);
+        const response = await this.post(`translate`, request);
         return response.data;
+    }
+    async post(api, body) {
+        const headers = this.getDefaultHeaders();
+        console.trace('post no h', `${this.endpoint}/${api}`, body, headers);
+        return axios_1.default.post(`${this.endpoint}/${api}`, body, {
+        // headers,
+        });
+    }
+    getDefaultHeaders() {
+        return {
+            "VanjaCloud_Debug": "true",
+        };
     }
 }
 exports.VanjaCloudClient = VanjaCloudClient;

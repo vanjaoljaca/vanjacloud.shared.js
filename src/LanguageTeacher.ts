@@ -23,7 +23,7 @@ export class LanguageTeacher {
         for await (let l of latest) {
             // console.log(l) //?
             i++
-            entries.push(JSON.parse(l));
+            entries.push(l.text);
 
         }
 

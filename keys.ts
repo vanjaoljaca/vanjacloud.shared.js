@@ -65,7 +65,18 @@ if (values == null) {
         SPOTIFY_CLIENTSECRET: undefined,
         AZURE_TRANSLATE_KEY: undefined,
         HUGGINGFACE_KEY: undefined,
-        MEM_KEY: undefined
+        MEM_KEY: undefined,
+        TWITTER_CONSUMER_API_KEY: undefined,
+        TWITTER_CONSUMER_API_KEY_SECRET: undefined,
+        TWITTER_API_KEY: undefined,
+        TWITTER_API_KEY_SECRET: undefined,
+        TWITTER_BEARER_TOKEN: undefined,
+        TWITTER_ACCESS_TOKEN: undefined,
+        TWITTER_ACCESS_TOKEN_SECRET: undefined,
+        TWITTER_OAUTH_TOKEN: undefined,
+        TWITTER_OAUTH_TOKEN_SECRET: undefined,
+        TWITTER_OAUTH2_CLIENT_ID: undefined,
+        TWITTER_OAUTH2_CLIENT_SECRET: undefined
       }
     }
   }
@@ -82,7 +93,24 @@ export default {
     translate: values.AZURE_TRANSLATE_KEY
   },
   huggingface: values.HUGGINGFACE_KEY,
-  mem: values.MEM_KEY
+  mem: values.MEM_KEY,
+  twitter: {
+    consumer: {
+        apiKey: values.TWITTER_API_KEY,
+        apiKeySecret: values.TWITTER_API_KEY_SECRET
+    },
+    bearerToken: values.TWITTER_BEARER_TOKEN,
+    accessToken: values.TWITTER_ACCESS_TOKEN,
+    accessTokenSecret: values.TWITTER_ACCESS_TOKEN_SECRET,
+    oauthToken: {
+      oauth_token: values.TWITTER_OAUTH_TOKEN,
+      oauth_token_secret: values.TWITTER_OAUTH_TOKEN_SECRET
+    },
+    oauth2: {
+      clientId: values.TWITTER_OAUTH2_CLIENT_ID,
+      clientSecret: values.TWITTER_OAUTH2_CLIENT_SECRET
+    }
+}
 };
 
 function loadFromProcessEnv(): any {
@@ -96,7 +124,16 @@ function loadFromProcessEnv(): any {
     SPOTIFY_CLIENTSECRET: process.env.SPOTIFY_CLIENTSECRET,
     AZURE_TRANSLATE_KEY: process.env.AZURE_TRANSLATE_KEY,
     HUGGINGFACE_KEY: process.env.HUGGINGFACE_KEY,
-    MEM_KEY: process.env.MEM_KEY
+    MEM_KEY: process.env.MEM_KEY,
+    TWITTER_API_KEY: process.env.TWITTER_API_KEY,
+    TWITTER_API_KEY_SECRET: process.env.TWITTER_API_KEY_SECRET,
+    TWITTER_BEARER_TOKEN: process.env.TWITTER_BEARER_TOKEN,
+    TWITTER_ACCESS_TOKEN: process.env.TWITTER_ACCESS_TOKEN,
+    TWITTER_ACCESS_TOKEN_SECRET: process.env.TWITTER_ACCESS_TOKEN_SECRET,
+    TWITTER_OAUTH_TOKEN: process.env.TWITTER_OAUTH_TOKEN,
+    TWITTER_OAUTH_TOKEN_SECRET: process.env.TWITTER_OAUTH_TOKEN_SECRET,
+    TWITTER_OAUTH2_CLIENT_ID: process.env.TWITTER_OAUTH2_CLIENT_ID,
+    TWITTER_OAUTH2_CLIENT_SECRET: process.env.TWITTER_OAUTH2_CLIENT_SECRET
   };
 }
 

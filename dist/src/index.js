@@ -40,6 +40,6 @@ var VanjaCloudClient_1 = require("./VanjaCloudClient");
 Object.defineProperty(exports, "VanjaCloudClient", { enumerable: true, get: function () { return VanjaCloudClient_1.VanjaCloudClient; } });
 Object.defineProperty(exports, "Environment", { enumerable: true, get: function () { return VanjaCloudClient_1.Environment; } });
 exports.default = {
-    Keys: keys_1.default // lol fix this dumbness
+    Keys: keys_1.default, // lol fix this dumbness
 };
 //# sourceMappingURL=index.js.map

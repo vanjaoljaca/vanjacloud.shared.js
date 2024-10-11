@@ -53,6 +53,26 @@ export declare class ThoughtDB {
         date?: moment.Moment;
         type?: ThoughtType;
     }): Promise<import("@notionhq/client/build/src/api-endpoints").UpdatePageResponse>;
-    getLatest(duration?: moment.Duration, max?: number, type?: ThoughtType): AsyncGenerator<any, void, unknown>;
+    getLatest(duration?: moment.Duration, max?: number, type?: ThoughtType): AsyncIx<{
+        id: any;
+        tags: any;
+        text: any;
+        type: any;
+        date: moment.Moment;
+    }>;
+    getLatestRaw(duration?: moment.Duration, max?: number, type?: ThoughtType): AsyncGenerator<{
+        id: any;
+        tags: any;
+        text: any;
+        type: any;
+        date: moment.Moment;
+    }, void, unknown>;
+    static toThought(notionItem: any): {
+        id: any;
+        tags: any;
+        text: any;
+        type: any;
+        date: moment.Moment;
+    };
 }
 //# sourceMappingURL=ThoughtDB.d.ts.map

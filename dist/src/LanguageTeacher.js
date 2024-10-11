@@ -50,7 +50,7 @@ class LanguageTeacher {
                 let l = _c;
                 // console.log(l) //?
                 i++;
-                entries.push(JSON.parse(l));
+                entries.push(l.text);
             }
         }
         catch (e_1_1) { e_1 = { error: e_1_1 }; }

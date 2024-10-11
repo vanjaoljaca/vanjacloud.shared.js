@@ -136,22 +136,12 @@ export class ThoughtDB {
       })
 
       for (const notionItem of (res.results as any[])) {
-
-        let props = notionItem.properties;
-        let data = props.Name || props.Note // (because I made a typo elsewhere...)
-
-        yield {
-          id: notionItem.id,
-          tags: props.Tags == null ? [] : props.Tags.multi_select.map((x: any) => x.name),
-          text: data.title[0].plain_text,
-          type: notionItem.icon?.emoji,
-          date: moment(notionItem.created_time)
-          // date: TODO!!!
-        }
+        yield ThoughtDB.toThought(notionItem)
         count++;
       }
     }
   }
+
 
   // async update(item) {
   //     return this.update(item.id, item);
@@ -207,7 +197,12 @@ export class ThoughtDB {
     return response;
   }
 
-  async * getLatest(duration?: moment.Duration, max?: number, type?: ThoughtType) {
+  getLatest(duration?: moment.Duration, max?: number, type?: ThoughtType) {
+
+    return Ix.AsyncIterable.from(this.getLatestRaw(duration, max, type))
+  }
+
+  async * getLatestRaw(duration?: moment.Duration, max?: number, type?: ThoughtType) {
 
     type = type || ThoughtType.note
     const page_size = 30
@@ -263,12 +258,24 @@ export class ThoughtDB {
           continue
         }
 
-        let props = result.properties;
-        let data = props.Name || props.Note // nfi why...
-
-        yield data.title[0].plain_text
+        yield ThoughtDB.toThought(result)
         count++
       }
+    }
+  }
+
+  static toThought(notionItem: any) {
+    let props = notionItem.properties;
+    let data = props.Name || props.Note // (because I made a typo elsewhere...)
+
+
+    return {
+      id: notionItem.id,
+      tags: props.Tags == null ? [] : props.Tags.multi_select.map((x: any) => x.name),
+      text: data.title[0].plain_text,
+      type: notionItem.icon?.emoji,
+      date: moment(notionItem.created_time)
+      // date: TODO!!!
     }
   }
 }

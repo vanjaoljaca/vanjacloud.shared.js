@@ -8,8 +8,8 @@ export interface Translation {
     to: string;
 }
 export declare class VanjaCloudClient {
-    private readonly url;
-    constructor(url: Environment);
+    private readonly endpoint;
+    constructor(endpoint: Environment);
     main(api: string, body: any): Promise<any>;
     explain(language: string, text: string): Promise<any>;
     languageRetrospective(language: string, duration?: moment.Duration): Promise<any>;
@@ -20,5 +20,7 @@ export declare class VanjaCloudClient {
         from?: string;
         traceId?: string;
     }): Promise<Translation[]>;
+    private post;
+    private getDefaultHeaders;
 }
 //# sourceMappingURL=VanjaCloudClient.d.ts.map

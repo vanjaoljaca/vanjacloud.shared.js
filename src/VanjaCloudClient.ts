@@ -18,29 +18,30 @@ interface AzureTranslateOpts {
 }
 
 export class VanjaCloudClient {
-  private readonly url: Environment;
+  private readonly endpoint: Environment;
 
-  constructor(url: Environment) {
-    this.url = url;
+  constructor(endpoint: Environment) {
+    this.endpoint = endpoint;
   }
 
   async main(api: string, body: any) {
-    const response = await axios.post(`${this.url}/${api}`, body);
+    const response = await this.post(`${this.endpoint}/${api}`, body);
     return response.data;
   }
 
   async explain(language: string, text: string) {
-    const response = await axios.post(`${this.url}/explain`, {
+    const response = await this.post(`explain`, {
       request: "explain",
       target: language,
       text: text,
-    });
+      }
+    );
     return response.data;
   }
 
   async languageRetrospective(language: string, duration?: moment.Duration) {
-    console.log("this.url", this.url);
-    const response = await axios.post(`${this.url}/retrospective`, {
+    console.log("this.url", this.endpoint);
+    const response = await this.post(`retrospective`, {
       // target: language,
       prompt: `
                 Write a short story in language '${language}' and make it entertaining. It will be used for remembering past translation requests
@@ -52,8 +53,8 @@ export class VanjaCloudClient {
   }
 
   async retrospective(prompt?: string, duration?: moment.Duration) {
-    console.log("this.url", this.url);
-    const response = await axios.post(`${this.url}/retrospective`, {
+    console.log("this.url", this.endpoint);
+    const response = await this.post(`retrospective`, {
       // target: language,
       prompt,
       duration,
@@ -69,7 +70,7 @@ export class VanjaCloudClient {
       type: "audio/mp3", // todo
     } as any);
 
-    const response = await fetch(`${this.url}/audio`, {
+    const response = await fetch(`audio`, {
       method: "POST",
       body: formData,
     });
@@ -81,7 +82,7 @@ export class VanjaCloudClient {
     text: string,
     opts?: { to?: string[]; from?: string; traceId?: string },
   ): Promise<Translation[]> {
-    const defaultTo = ["en_US", "de", "es", "sr-Cyrl-BA"];
+    const defaultTo = ["en_US", "de", "es", "sr-Cyrl"];
 
     const request = {
       text: text,
@@ -90,8 +91,24 @@ export class VanjaCloudClient {
       traceId: opts?.traceId,
     };
 
-    const response = await axios.post(`${this.url}/translate`, request);
+    const response = await this.post(`translate`, request);
 
     return response.data as Translation[];
+  }
+
+  private async post(api: string, body: any) {
+    const headers = this.getDefaultHeaders();
+
+    console.trace('post no h', `${this.endpoint}/${api}`, body, headers)
+
+    return axios.post(`${this.endpoint}/${api}`, body, {
+      // headers,
+    });
+  }
+
+  private getDefaultHeaders() {
+    return {
+        "VanjaCloud_Debug": "true",
+      }
   }
 }
