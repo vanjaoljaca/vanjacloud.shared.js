@@ -73,10 +73,18 @@ class VanjaCloudClient {
     }
     async post(api, body) {
         const headers = this.getDefaultHeaders();
-        throw new Error('No network connection');
-        return axios_1.default.post(`${this.endpoint}/${api}`, body, {
-        // headers,
-        });
+        console.log(`${api}:request`, body, this.endpoint);
+        try {
+            const response = await axios_1.default.post(`${this.endpoint}/${api}`, body, {
+            // headers,
+            });
+            console.log(`${api}:response`, { status: response.status, statusText: response.statusText }, response.data);
+            return response.data;
+        }
+        catch (e) {
+            console.error(`${api}:error`, e);
+            throw e;
+        }
     }
     getDefaultHeaders() {
         return {
