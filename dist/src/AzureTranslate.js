@@ -1,10 +1,6 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AzureTranslate = void 0;
-const axios_1 = __importDefault(require("axios"));
 const uuid_1 = require("uuid");
 class AzureTranslate {
     constructor(key, opts) {
@@ -15,28 +11,32 @@ class AzureTranslate {
     }
     async translate(text, opts) {
         const defaultTo = ['en', 'de', 'es', 'sr-Cyrl-BA'];
-        const r = await (0, axios_1.default)({
-            baseURL: this.endpoint,
-            url: '/translate',
-            method: 'post',
-            headers: {
-                'Ocp-Apim-Subscription-Key': this.key,
-                // location required if you're using a multi-service or regional (not global) resource.
-                'Ocp-Apim-Subscription-Region': this.location,
-                'Content-type': 'application/json',
-                'X-ClientTraceId': (opts === null || opts === void 0 ? void 0 : opts.traceId) || this.traceIdGenerator()
-            },
-            params: {
-                'api-version': '3.0',
-                'from': opts === null || opts === void 0 ? void 0 : opts.from,
-                'to': (opts === null || opts === void 0 ? void 0 : opts.to) || defaultTo
-            },
-            data: [{
-                    'text': text
-                }],
-            responseType: 'json'
+        const url = new URL('/translate', this.endpoint);
+        url.searchParams.append('api-version', '3.0');
+        url.searchParams.append('from', 'en');
+        url.searchParams.append('to', ((opts === null || opts === void 0 ? void 0 : opts.to) || defaultTo).join(','));
+        const headers = new Headers({
+            'Ocp-Apim-Subscription-Key': this.key,
+            'Ocp-Apim-Subscription-Region': this.location,
+            'Content-Type': 'application/json',
+            'X-ClientTraceId': (opts === null || opts === void 0 ? void 0 : opts.traceId) || this.traceIdGenerator()
         });
-        return r.data[0].translations;
+        const body = JSON.stringify([{
+                'text': text
+            }]);
+        const response = await fetch(url.toString(), {
+            method: 'POST',
+            headers: headers,
+            body: body
+        }).then(res => {
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+        }).catch(e => {
+            throw new Error(`/translate error: ${e.message}`);
+        });
+        return response[0].translations;
     }
 }
 exports.AzureTranslate = AzureTranslate;

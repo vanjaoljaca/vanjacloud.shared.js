@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import { v4 as uuidv4 } from "uuid";
 
 export interface Translation {
@@ -32,28 +30,35 @@ export class AzureTranslate {
 
     const defaultTo = ['en', 'de', 'es', 'sr-Cyrl-BA'];
 
-    const r = await axios({
-      baseURL: this.endpoint,
-      url: '/translate',
-      method: 'post',
-      headers: {
+    const url = new URL('/translate', this.endpoint);
+    url.searchParams.append('api-version', '3.0');
+    url.searchParams.append('from', 'en');
+    url.searchParams.append('to', (opts?.to || defaultTo).join(','));
+
+    const headers = new Headers({
         'Ocp-Apim-Subscription-Key': this.key,
-        // location required if you're using a multi-service or regional (not global) resource.
         'Ocp-Apim-Subscription-Region': this.location,
-        'Content-type': 'application/json',
+        'Content-Type': 'application/json',
         'X-ClientTraceId': opts?.traceId || this.traceIdGenerator()
-      },
-      params: {
-        'api-version': '3.0',
-        'from': opts?.from, // null is fine
-        'to': opts?.to || defaultTo
-      },
-      data: [{
-        'text': text
-      }],
-      responseType: 'json'
     });
 
-    return r.data[0].translations as Translation[];
+    const body = JSON.stringify([{
+        'text': text
+    }]);
+
+    const response = await fetch(url.toString(), {
+        method: 'POST',
+        headers: headers,
+        body: body
+    }).then(res => {
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+    }).catch(e => {
+        throw new Error(`/translate error: ${e.message}`);
+    });
+
+    return response[0].translations as Translation[];
   }
 }
