@@ -16,7 +16,7 @@ class VanjaCloudClient {
     }
     async main(api, body) {
         const response = await this.post(`${this.endpoint}/${api}`, body);
-        return response.data;
+        return response;
     }
     async explain(language, text) {
         const response = await this.post(`explain`, {
@@ -24,7 +24,7 @@ class VanjaCloudClient {
             target: language,
             text: text,
         });
-        return response.data;
+        return response;
     }
     async languageRetrospective(language, duration) {
         console.log("this.url", this.endpoint);
@@ -36,7 +36,7 @@ class VanjaCloudClient {
                 Highlight the supplied references in bold so that they are easily recognizable.`,
             duration,
         });
-        return response.data;
+        return response;
     }
     async retrospective(prompt, duration) {
         console.log("this.url", this.endpoint);
@@ -45,7 +45,7 @@ class VanjaCloudClient {
             prompt,
             duration,
         });
-        return response.data;
+        return response;
     }
     async uploadAudio(uri) {
         const formData = new FormData();
@@ -68,8 +68,8 @@ class VanjaCloudClient {
             from: opts === null || opts === void 0 ? void 0 : opts.from,
             traceId: opts === null || opts === void 0 ? void 0 : opts.traceId,
         };
-        const response = await this.post(`translate`, request);
-        return response.data;
+        const data = await this.post(`translate`, request);
+        return data;
     }
     async post(api, body) {
         const headers = this.getDefaultHeaders();

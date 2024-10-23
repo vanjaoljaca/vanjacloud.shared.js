@@ -1,4 +1,5 @@
 import axios from "axios";
+import { throwIfAborted } from "ix/aborterror";
 import moment from "moment";
 
 export enum Environment {
@@ -26,7 +27,7 @@ export class VanjaCloudClient {
 
   async main(api: string, body: any) {
     const response = await this.post(`${this.endpoint}/${api}`, body);
-    return response.data;
+    return response;
   }
 
   async explain(language: string, text: string) {
@@ -36,7 +37,7 @@ export class VanjaCloudClient {
       text: text,
       }
     );
-    return response.data;
+    return response;
   }
 
   async languageRetrospective(language: string, duration?: moment.Duration) {
@@ -49,7 +50,7 @@ export class VanjaCloudClient {
                 Highlight the supplied references in bold so that they are easily recognizable.`,
       duration,
     });
-    return response.data;
+    return response;
   }
 
   async retrospective(prompt?: string, duration?: moment.Duration) {
@@ -59,7 +60,7 @@ export class VanjaCloudClient {
       prompt,
       duration,
     });
-    return response.data;
+    return response;
   }
 
   async uploadAudio(uri: string) {
@@ -91,12 +92,12 @@ export class VanjaCloudClient {
       traceId: opts?.traceId,
     };
 
-    const response = await this.post(`translate`, request);
+    const data = await this.post<Translation[]>(`translate`, request);
 
-    return response.data as Translation[];
+    return data;
   }
 
-  private async post(api: string, body: any) {
+  private async post<T>(api: string, body: any): Promise<T>{
     const headers = this.getDefaultHeaders();
 
     console.log(`${api}:request`, body, this.endpoint)

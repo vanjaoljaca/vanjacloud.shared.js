@@ -10,10 +10,10 @@ export interface Translation {
 export declare class VanjaCloudClient {
     private readonly endpoint;
     constructor(endpoint: Environment);
-    main(api: string, body: any): Promise<any>;
-    explain(language: string, text: string): Promise<any>;
-    languageRetrospective(language: string, duration?: moment.Duration): Promise<any>;
-    retrospective(prompt?: string, duration?: moment.Duration): Promise<any>;
+    main(api: string, body: any): Promise<unknown>;
+    explain(language: string, text: string): Promise<unknown>;
+    languageRetrospective(language: string, duration?: moment.Duration): Promise<unknown>;
+    retrospective(prompt?: string, duration?: moment.Duration): Promise<unknown>;
     uploadAudio(uri: string): Promise<boolean>;
     translate(text: string, opts?: {
         to?: string[];
