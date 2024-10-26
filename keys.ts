@@ -88,7 +88,8 @@ function getValues() {
 
 values = getValues();
 
-console.log('vanjacloud:keys:load', Object.keys(values).map(k => `${k}: ${values[k]?.length}`));
+console.log('vanjacloud:keys:load', 
+  values != null ? Object.keys(values).map(k => `${k}: ${values[k]?.length}`) : 'null');
 
 export default {
   openai: values.OPENAI_KEY,

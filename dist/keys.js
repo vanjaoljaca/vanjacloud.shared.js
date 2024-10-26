@@ -82,7 +82,7 @@ function getValues() {
     }
 }
 values = getValues();
-console.log('vanjacloud:keys:load', Object.keys(values).map(k => { var _a; return `${k}: ${(_a = values[k]) === null || _a === void 0 ? void 0 : _a.length}`; }));
+console.log('vanjacloud:keys:load', values != null ? Object.keys(values).map(k => { var _a; return `${k}: ${(_a = values[k]) === null || _a === void 0 ? void 0 : _a.length}`; }) : 'null');
 exports.default = {
     openai: values.OPENAI_KEY,
     notion: values.NOTION_SECRET,
