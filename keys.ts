@@ -46,50 +46,35 @@ function loadFromCompileTimeKeys() {
 
 function getValues() {
   values = loadSettingsFile();
-  if (values != null) {
+  if (values !== null) {
     console.info('vanjacloud:keys:load:settings');
     return values;
   }
 
   values = loadFromCompileTimeKeys();
-  if (values != null) {
+  if (values !== null) {
     console.info('vanjacloud:keys:load:compiletime');
     return values;
   }
 
   try {
     values = loadFromProcessEnv()
-    console.info('vanjacloud:keys:load:env');
+    if(values !== null) {
+      console.info('vanjacloud:keys:load:env');
+      return values;
+    }
   } catch (err) {
     console.warn('vanjacloud:keys:load:error');
-    values = {
-      OPENAI_KEY: undefined,
-      NOTION_SECRET: undefined,
-      SPOTIFY_CLIENTID: undefined,
-      SPOTIFY_CLIENTSECRET: undefined,
-      AZURE_TRANSLATE_KEY: undefined,
-      HUGGINGFACE_KEY: undefined,
-      MEM_KEY: undefined,
-      TWITTER_CONSUMER_API_KEY: undefined,
-      TWITTER_CONSUMER_API_KEY_SECRET: undefined,
-      TWITTER_API_KEY: undefined,
-      TWITTER_API_KEY_SECRET: undefined,
-      TWITTER_BEARER_TOKEN: undefined,
-      TWITTER_ACCESS_TOKEN: undefined,
-      TWITTER_ACCESS_TOKEN_SECRET: undefined,
-      TWITTER_OAUTH_TOKEN: undefined,
-      TWITTER_OAUTH_TOKEN_SECRET: undefined,
-      TWITTER_OAUTH2_CLIENT_ID: undefined,
-      TWITTER_OAUTH2_CLIENT_SECRET: undefined
-    }
-    return values;
   }
+
+  values = {}
+  return values;
 }
 
 values = getValues();
 
-console.log('vanjacloud:keys:load', 
-  values != null ? Object.keys(values).map(k => `${k}: ${values[k]?.length}`) : 'null');
+console.log('vanjacloud:keys:load',
+  values !== null ? Object.keys(values).map(k => `${k}: ${values[k]?.length}`) : 'null');
 
 export default {
   openai: values.OPENAI_KEY,
