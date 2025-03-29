@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Environment = exports.VanjaCloudClient = exports.LanguageTeacher = exports.ChatGPT = exports.AzureTranslate = exports.Content = exports.Thought = void 0;
+exports.MochiAPI = exports.Environment = exports.VanjaCloudClient = exports.LanguageTeacher = exports.ChatGPT = exports.AzureTranslate = exports.Content = exports.Thought = void 0;
 const keys_1 = __importDefault(require("../keys"));
 exports.Thought = __importStar(require("./ThoughtDB"));
 exports.Content = __importStar(require("./ContentDB"));
@@ -39,6 +39,8 @@ Object.defineProperty(exports, "LanguageTeacher", { enumerable: true, get: funct
 var VanjaCloudClient_1 = require("./VanjaCloudClient");
 Object.defineProperty(exports, "VanjaCloudClient", { enumerable: true, get: function () { return VanjaCloudClient_1.VanjaCloudClient; } });
 Object.defineProperty(exports, "Environment", { enumerable: true, get: function () { return VanjaCloudClient_1.Environment; } });
+var mochi_1 = require("./mochi/mochi");
+Object.defineProperty(exports, "MochiAPI", { enumerable: true, get: function () { return mochi_1.MochiAPI; } });
 exports.default = {
     Keys: keys_1.default, // lol fix this dumbness
 };

@@ -4,6 +4,7 @@ export { AzureTranslate } from "./AzureTranslate";
 export { ChatGPT } from "./ChatGPT";
 export { LanguageTeacher } from "./LanguageTeacher";
 export { VanjaCloudClient, Environment, Translation } from "./VanjaCloudClient";
+export { MochiAPI } from './mochi/mochi';
 declare const _default: {
     Keys: {
         openai: any;
